@@ -1,0 +1,1 @@
+\contentsline {section}{\numberline {1}Propositional and First-Order Logic}{2}{section.1}%
