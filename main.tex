@@ -8,12 +8,50 @@
 \usepackage{hyperref}
 \usepackage{blindtext}
 \usepackage[margin=1in,footskip=0.25in]{geometry}
+\usepackage[most]{tcolorbox}
+
 
 % if you ever want to ente% Required for inserting images
 
 \title{Analysis Notes 131AH}
 \author{OMKAR TASGAONKAR}
 \date{Winter Quarter - January-March 2026}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{axm}{Axiom}[section]
+
+\tcolorboxenvironment{thm}{
+  colback=lime,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{lem}{
+  colback=yellow,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{defn}{
+  colback=pink,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{cor}{
+  colback=pink,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{axm}{
+  colback=white,
+  colframe=black,
+  breakable
+}
+
 
 \begin{document}
 
@@ -24,6 +62,89 @@ Hello! These are my notes for analysis, which I have typed up to save to github 
 \pagebreak
 
 \section{Propositional and First-Order Logic}
-Hello
+\begin{defn}
+    A proposition is a statement that takes a TRUE or FALSE value
+\end{defn}
+For example, "birds are mammals" is a valid proposition, which takes on the value of FALSE. We also define a "primitive proposition", which is one with no connectives or quantifiers.\\
+
+\begin{defn}
+    A connective is a unary or binary operator allowing us to chain propositions to create new propositions
+\end{defn}
+The connectives we will work with are $\lnot$ (logical not), $\land$ (and), $\lor$ (or), $\implies$ (implies), and $\iff$ (bioconditional). The $\lnot$ operator is the only unary operator, which switches the value of the proposition. The others are binary, requiring two propositions and outputting one value.\\
+
+We view an interesting truth table for $\implies$:
+\begin{center}
+\begin{tabular}{| c | c  | c |}
+\hline
+$P$ & $Q$ & $P \implies Q$ \\
+\hline
+T & T & T\\
+T & F & F\\
+F & T & T\\
+F & F & T\\
+\hline
+\end{tabular}
+\end{center}
+
+\indent When $P$ is false but $Q$ is true, the entire statement is "vacuously" true as the expected proposition $Q$ is true no matter $P$. When both are false, the proposition is true as well. So in general when $P$ is false, $P \implies Q$ is true.\\
+
+\begin{lem}
+    $(P \implies Q) \iff \lnot(P \land \lnot Q) \iff \lnot P \lor Q$
+\end{lem}
+Here the biconditional means that the propositions are equivalent. We can use the biconditional to represent when two statements imply each other or are logically the same.\\
+
+This lemma highlights proof by contradiction, where we assume $P$ and $\lnot Q$ and we show some contradiction (or show that the proposition is false). Then the logical not of the proposition is true. The second equivalence is an application of DeMorgan's Laws for logic.\\
+
+\begin{lem}
+    $(P \implies Q) \iff \lnot Q \implies \lnot P$
+\end{lem}
+This is the method of proof by contrapositive. This implication is called the \textbf{"only if"} direction, while the reverse is the \textbf{"if"} direction.\\
+
+\begin{defn}
+    We propose two quantifiers: $\forall$ (for all/for each) and $\exists$ (there exists)
+\end{defn}
+A first order statement assumes the form: (quantifier)(variable): (proposition). This is the basis of First Order Logic, an extension of propositional logic. For example:
+\begin{equation*}
+    \forall x : P(x)
+\end{equation*}
+translates to: for all x such that $P(x)$ is true. The terminology "some" is equivalent to $\exists$.\\
+
+\begin{lem}
+    $\lnot(\forall x : P(x)) \iff \exists x : \lnot P(x)$ and $\lnot(\exists x: P(x)) \iff \forall x : \lnot P(x)$
+\end{lem}
+Here we see how the logical not operator distributes over quantifier and proposition.\\
+
+\begin{thm}
+    $\forall x \forall y: P(x, y) \iff \forall y, \forall x: P(x, y)$ and $\exists x, \exists y: P(x, y) \iff \exists y, \exists x: P(x, y)$
+\end{thm}
+If the quantifiers for two variables are the same, we can switch the order of the quantifiers. This will appear in proofs involving sets and supremums/infimums. However, if they are not the same, then we cannot suggest an equivalence.\\
+
+\begin{thm}
+    $\exists x \forall y: P(x, y) \implies \forall y \exists x: P(x, y)$
+\end{thm}
+The reason why this is a one-way implication is because the left hand statement is more specific. We will encounter this when dealing with images and preimages. We take the following example:\\
+
+\textbf{Mathematical Example}: If there exists one $x$ greater than all $y$, then for each $y$ there exists an $x > y$. In this case that $x$ is the same. For the converse, if each $y$ has an $x > y$, there may not be a singular $x$ greater than all $y$.\\
+
+\textbf{Figurative Example}: If there is one building to which all apartments belong, then all the apartments belong to that building. However, if all the apartments belong to \text{a} building, not necessarily they belong to one building. We can have the apartments in multiple buildings.
+\pagebreak
+
+%------------------------------------------------------------%
+
+\section{Naive Set Theory and Zermelo Fraenkel}
+Naive Set Theory was the initial proposed set theory. A set being a container for some sort of objects. To construct a set, we have the following:
+\begin{defn}
+    The Comprehension Principle: $A \coloneq \{x : P(x)\}$
+\end{defn}
+The symbol $\coloneq$ means "defined as". If we use "$=$" when referring to sets, that is not the same as using $\coloneq$.\\
+
+The Comprehension Principle tells us that a set is some elements $x$ that satisfy a proposition $P(x)$. We won't dwell on this theory too much, but it has pitfalls such as Russell's paradox:
+\begin{equation*}
+    A \coloneq \{x : x \notin x\}
+\end{equation*}
+
+Here if $x \notin x$, then we could say $A \notin A$, but the proposition tells us that $A \in A$, so we come across a contradiction.\\
+
+
 
 \end{document}
