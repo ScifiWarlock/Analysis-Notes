@@ -132,6 +132,7 @@ The reason why this is a one-way implication is because the left hand statement 
 %------------------------------------------------------------%
 
 \section{Naive Set Theory and Zermelo Fraenkel}
+\subsection{Naive Set Theory}
 Naive Set Theory was the initial proposed set theory. A set being a container for some sort of objects. To construct a set, we have the following:
 \begin{defn}
     The Comprehension Principle: $A \coloneq \{x : P(x)\}$
@@ -144,6 +145,48 @@ The Comprehension Principle tells us that a set is some elements $x$ that satisf
 \end{equation*}
 
 Here if $x \notin x$, then we could say $A \notin A$, but the proposition tells us that $A \in A$, so we come across a contradiction.\\
+
+\subsection{Zermelo Fraenkel}
+\begin{axm}
+    \textbf{Axiom of Separation} Any set $A$ can be defined as $\{x \in U : P(x)\}$.
+\end{axm}
+We see that the elements $x \in A$ are being drawn from $U$ which in this case can be a universe (all the possible sets, but this is not itself a set), or a bigger set. By restricting elements, we can prevent self references such as those in Russell's paradox.\\
+
+\begin{axm}
+    \textbf{Axiom of Extensionality} $\forall A, B: A = B \iff \forall x: (x \in A \iff x \in B)$
+\end{axm}
+We mentioned previously that $\coloneq$ is not the same as $=$ for sets. Extensionality gives the definition of $=$ to be that the sets must have the same elements. The axiom itself is sometimes written as an implication rather than a biconditional.\\
+
+\begin{axm}
+    \textbf{Empty Set}: $\exists \varnothing : \forall x \in U: x \notin \varnothing$
+\end{axm}
+We postulate the existence of the empty set, which contains none of the possible elements in the universe. Now, how do we build the set of all subsets (aka the powerset)?\\
+
+\begin{defn}
+    $\subseteq$ (subset relation): $\forall A, B: A \subseteq B \implies \forall x \in A: x \in B$
+\end{defn}
+Let's try to use the Axiom of Separation and this definition to construct the powerset. We can say maybe for a set $A$ that $\mathcal{P}(A) \coloneq \{B \in C: B \subseteq A\}$. But this definition requires a set $C$ to exist in which $B$ belongs, so either this is the powerset or a set containing more elements than the powerset, and so we have a circular definition.\\
+
+\begin{axm}
+    \textbf{Powerset}: $\forall A \exists \mathcal{P}(A): (\forall B \subset A: B \in \mathcal(P)(A))$
+\end{axm}
+We have the same issue when we go to define a set such as $\{x, y\}$, which is called the pairset, as each element is also inherently a set.\\
+
+\begin{axm}
+    \textbf{Pairset}: $\forall x, y \exists A \forall Z \in A: x = z \lor y = z$
+\end{axm}
+The pairset allows us to show the existence of a singleton set $\{x\}$ if both the elements given are the same as $\{x, x\} = \{x\}$. This can be shown by extensionality.\\
+
+\begin{axm}
+    \textbf{Infinite Set}: $I \coloneq \{x: x \in I \implies \{x\} \in I\}$
+\end{axm}
+This is one possible construction of the infinite set we will use for the naturals; however, this axiom postulates the existence of infinite sets. Many of the constructions in analysis will hinge on this axiom; without it, we fail to construct the idea of "natural numbers" let alone "real numbers".\\
+\pagebreak
+
+%----------------------------------------------------------------------------%
+
+\section{Ordered Pairs and Relations}
+
 
 
 
