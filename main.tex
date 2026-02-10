@@ -186,6 +186,70 @@ This is one possible construction of the infinite set we will use for the natura
 %----------------------------------------------------------------------------%
 
 \section{Ordered Pairs and Relations}
+We talk about pairs (or n-tuples) of numbers such as $(1, 2)$ or $(x, y)$. However, we also distinguish the order unlike sets, saying that $(1, 2)$ is not the same as $(2, 1)$.\\
+
+\begin{defn}
+    \textbf{Kuratowski Pair}: $(x, y) \coloneq \{\{x\}, \{x, y\}\}$
+\end{defn}
+\pagebreak
+
+%---------------------------------------------------------------------%
+\section{Properties of the Reals}
+So far we have constructed the reals or $\mathbb{R}$ as the set of Dedekind cuts, which are the set of rationals less than that real number. By allowing for completeness, we can show that each cut admits an upper bound so it admits a supremum.\\
+
+The supremum is the real number itself; however, quantifying the supremum will require the existence of an algebraic structure that encompasses the supremum. If we solely rely on $\mathbb{Q}$, then certain cuts may not admit supremums in $\mathbb{Q}$.\\
+
+So we say there exists some complete ordered field $(F, +, 0, \cdot, 1, \leqslant)$ (completeness is important here, otherwise we cannot guarantee supremums). Each ordered field fundamentally has the $\mathbb{N}_F$. We examine a theorem:
+\begin{thm}
+    If $F$ is an ordered field, then it has characteristic $0$
+\end{thm}
+\noindent We prove this by contrapositive:
+\begin{proof}
+Assume $F$ does not have characteristic 0. Then $\sum_{k=1}^{n}(1) = 0$ for an arbitrary n. We then know that $0 < 1$, by ordered field properties:
+\begin{equation*}
+    0 < 1 \implies \sum_{k=1}^{n-1}(1) < \sum_{k=1}^{n-1}(1) _ 1 = \sum_{k=1}^{n}(1) = 0
+\end{equation*}
+Now assume the inequality to be true, then by mulitplicative property of ordered fields:
+\begin{equation*}
+    \implies \sum_{k=1}^{n-1}(1) \cdot \sum_{k=1}^{n-1}(1) < 0
+\end{equation*}
+\begin{eqnarray}
+    \iff (n-1)^2 = n^2 - 2n + 1 < 0
+\end{eqnarray}
+We know that $n$ or $1$ added $n$ times repeatedly is equal to zero, so we get:
+\begin{equation*}
+    0 + 1 = 1 < 0
+\end{equation*}
+Which is a contradiction of a key property of ordered fields that $0 \leqslant 1$. 
+\end{proof}
+\noindent So now, the addition of of $1$ to an element of the field becomes our sucessor operation, and $0$ becomes our zero element. If we then consider the subset of elements greater than zero, then zero is not a sucessor of any number in the set. Thus we can construct the naturals in a field as:
+\begin{equation*}
+    \mathbb{N}_F = \bigcap_{\alpha \in I}\{A_\alpha \subseteq F: (\forall x \in A_\alpha: x +1 \in A_\alpha)\}
+\end{equation*}
+
+\noindent Now that we have the naturals in every ordered field, by field properties, we require their additive and multiplicative inverses. Furthermore any combination of these must also remain in the field, giving rise to the rationals $\mathbb{Q}_F$ (considered the "minimal" ordered field).\\
+
+\noindent So currently we have the set of Dedekind cuts $\mathbb{R}$ and an ordered field structure $F$. One is constructed from ground up, the other's existence is assumed respectively. We aim to show the two are isomorphic. We know the following theorem proved in prior chapters:
+\begin{thm}
+The rationals of different fields are isomorphic
+\end{thm}
+\noindent So there exists an isomorphism we call $\psi: \mathbb{Q} \xrightarrow{} \mathbb{Q}_F$. Since the Dedekind cuts are merely sets of rationals, then we can construct cuts in $F$ which we call $\mathbb{R}_F$. We can extend $\psi: \mathbb{R} \xrightarrow{} \mathbb{R}_F$.\\
+
+\begin{lem}
+    $\forall A \subseteq \mathbb{R}_F: (\exists b \in F, \forall a \in A: a \leqslant b): \sup: A \xrightarrow{} F$ and $\sup$ is an isomorphism
+\end{lem}
+\noindent This lemma is essentially the restatement of the completeness of $F$. If we take any subset bounded above, then it admits a supremum. However, here we define the supremum as a map from a set to an element in the field. We prove it is an isomorphism for a cut specifically:
+\begin{proof}
+For the sake of brevity we assume $\sup$ is a homomorphism (which means that it respects the operations of sets and the field). We aim to show injectivity:
+\begin{equation*}
+    \forall A, B: \sup(A) = \sup(B) \implies A = B
+\end{equation*}
+If two cuts are not equal, then either $A \subset B \lor B \subset A$. Assume without loss of generality that $A \subset B$. Then:
+\begin{equation*}
+    \exists b \in B, \forall a \in A: a < b
+\end{equation*}
+This inequality we can derive from the ordering of $F$ and the construction of the cuts. Then $b$ is an upper bound for $A$ and by definition of supremum $\sup(A) \leqslant b$.
+\end{proof}
 
 
 
