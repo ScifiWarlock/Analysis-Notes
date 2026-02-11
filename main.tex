@@ -275,17 +275,208 @@ Assume for a certain $x \in F$, that there does not exist an $A \in \mathbb{R}_F
 
 \medskip
 \begin{thm}
-For all ordered fields $(F, +, 0, \cdot, 1, \leqslant)$, we find that $\mathbb{R} \cong F$.
+For all complete ordered fields $(F, +, 0, \cdot, 1, \leqslant)$, we find that $\mathbb{R} \cong F$.
 \end{thm}
 The proof of this is simply a combination of the previous theorems and lemmas. We know that $\psi: \mathbb{R} \xrightarrow{} \mathbb{R}_F$ is an isomorphism and $\sup: \mathbb{R}_F \xrightarrow{} F$ is also an isomorphism. The composition is therefore an isomorphism:
 \begin{equation*}
     \sup \circ \psi: \mathbb{R} \xrightarrow{} F
 \end{equation*}
-So the Dedekind cut representation of the reals are isomorphic to any ordered field. So now instead of dealing with the reals as a set of Dedekind cuts, we can deal with it as an ordered field of the supremums of the Dedekind cuts. So $\sqrt{2}$ is a supremum of the cut, so we can explicitly refer to the cut as $\sqrt{2}$ itself even though the cut does not admit a supremum in $\mathbb{Q}$. 
+So the Dedekind cut representation of the reals are isomorphic to any complete ordered field. So now instead of dealing with the reals as a set of Dedekind cuts, we can deal with it as an ordered field of the supremums of the Dedekind cuts. So $\sqrt{2}$ is a supremum of the cut, so we can explicitly refer to the cut as $\sqrt{2}$ itself even though the cut does not admit a supremum in $\mathbb{Q}$. 
 \pagebreak
 
+%----------------------------------------------------------------------------------%
+
 \section{Properties of the Reals}
+We have determined that every complete ordered field is isomorphic to the real numbers. We now aim to show certain properties have correctly carried forward to this construction.\\
 
+We dealt with rational roots and equalities such as $x^2 = 2$ that did not admit solutions in the rationals, but allowed us to construct $\sqrt{2}$ in the reals. We now see the reals hold for arbitrary roots as well:
+\begin{thm}
+$\forall a \in \mathbb{R}^+, \forall n \in \mathbb{N}\setminus \{0\}: (\exists x \in \mathbb{R}^+: x^n = a) \land (x^n = y^n \implies x = y)$
+\end{thm}
+In essence, there exists an $nth$ root for every real number, which is unique. We use the following property:
+\begin{equation*}
+    \forall x, y \in \mathbb{R}, \forall n \in \mathbb{N}\setminus \{0\}: x^n - y^n = (x-y)\sum_{k=0}^{n-1}x^k y^{n-k-1}
+\end{equation*}
+Integer exponentiation can be defined by field properties as repeated multiplication of the element in the field.\\
 
+\textbf{HW 5 Problem}: We prove the property below:
+\begin{proof}
+By the distributive property of multiplication in fields:
+\begin{equation*}
+    (x-y)\sum_{k=0}^{n-1}x^k y^{n-k-1} = x\sum_{k=0}^{n-1}x^k y^{n-k-1} - y\sum_{k=0}^{n-1}x^k y^{n-k-1}
+\end{equation*}
+\begin{equation*}
+    = \sum_{k=0}^{n-1}x^{k+1} y^{n-k-1} - \sum_{k=0}^{n-1}x^k y^{n-k}
+\end{equation*}
+We can notice a pattern of cancellations here. The last term of the left term is $x^n$ and the first term of the right term is $y^n$. We can then rewrite the sum as:
+\begin{equation*}
+    = x^n - y^n + \sum_{k=0}^{n-2}x^{k+1} y^{n-k-1} - \sum_{k=1}^{n-1}x^k y^{n-k}
+\end{equation*}
+We see that the two summations output the same terms, just that the starting and ending indices are up by 1. If our starting term is $x y^{n-1}$, then at $k=0$ we sum $x^{k+1}y^{n-k-1}$, but at $k=1$, we sum $x^k y^{n-k}$.\\
 
+If our last term is $x^{n-1}y$, then the same applies. So the two summations are equal, thus their subtraction equals 0, and our resultant expression is $x^n - y^n$.
+\end{proof}
+
+\medskip
+We return to the proof of the theorem. We define the set $A \coloneq \{y \in \mathbb{R}^+: y^n \leqslant a\}$. Since this is a subset of the field, if it is bounded, then it admits a supremum:
+\begin{equation*}
+    1 + a > a \implies (1 + a)^n > (1+a)^{n-1}a > a^n > a \ \ (\text{Ordering Property of Multiplication})
+\end{equation*}
+Thus $\forall y \in A: y \leqslant 1 + a$ so $A$ is bounded above, thus it admits a supremum. We want to show that $\sup(A)^n = a$, thus defining the supremum of the set as the n-th root and showing its existence (as we know supremum exists).
+\begin{proof}
+We use the fact that $\forall y \in A: y \leqslant \sup(A)$, We first show $\sup(A)^n \leqslant A$. We also use the fact that:
+\begin{equation*}
+    \forall m \in \mathbb{N}\setminus \{0\}: \sup(A) - \frac{1}{m} < \sup(A) \implies \exists y \in A: \sup(A) - \frac{1}{m} \leqslant y
+\end{equation*}
+\begin{equation*}
+    \sup(A)^n - a \leqslant \sup(A)^n - y^n = (\sup(A) - y)\sum_{k=0}^{n-1}\sup(A)^k y^{n-k-1}
+\end{equation*}
+Our previous implication that $\sup(A) - \frac{1}{m} \leqslant y \iff \sup(A) \leqslant y + \frac{1}{m} \implies \sup(A) \leqslant y$. Since $y \in A$, we know that $y \leqslant \sup(A)$, so $y = \sup(A)$. Our inequality becomes:
+\begin{equation*}
+    \sup(A)^n - a \leqslant \sup(A)^n - y^n = (\sup(A) - y)\sum_{k=0}^{n-1}\sup(A)^k y^{n-k-1} = 0 \iff \sup(A)^n \leqslant a
+\end{equation*}
+
+\medskip
+We now prove that $\sup(A)^n \geqslant a$. We note that $\forall m \in \mathbb{N}\setminus \{0\}: \sup(A) + \frac{1}{m} > \sup(A)$, so:
+\begin{equation*}
+    (\sup(A) + \frac{1}{m})^n > a \implies a - \sup(A)^n < (\sup(A) + \frac{1}{m})^n - \sup(A)^n 
+\end{equation*}
+\begin{equation*}
+    = \frac{1}{m}\sum_{k=0}^{n-1}(\sup(A)+\frac{1}{m})^k \sup(A)^{n-k-1} \leqslant \frac{n}{m}(\sup(A) + \frac{1}{m})^{n-1}
+\end{equation*}
+Thus, by dividing both sides (also the Archimedian Property is really a double implication), we see that:
+\begin{equation*}
+    \frac{m}{n}\frac{a - \sup(A)^n}{(\sup(A) + \frac{1}{m})^{n-1}} < 1 \implies a - \sup(A)^n \leqslant 0 \iff \sup(A)^n \geqslant a
+\end{equation*}
+So we have proven that $\sup(A)^n = a$, proving the existence of the $nth$ root, which we will denote by $a^{1/n}$.
+\end{proof}
+
+\medskip
+\begin{proof}
+We now prove the uniqueness of the $n-th$ root. Assume there are two $n-th$ roots of $a$ such that $y^n = a = \tilde{y}^n$. Then:
+\begin{equation*}
+    \sup(A)^n = y^n = \tilde{y}^n = a \implies a^{1/n} = \sup(A) = y = \tilde{y}
+\end{equation*}
+Since the supremum is unique, then if $y = \sup(A) = \tilde{y}$, then $y$ must equal $\tilde{y}$, so the $nth$ root is unique.
+\end{proof}
+
+\medskip
+Now that we have the notion of natural powers and $nth$ roots, we can extend this to rational roots. We know that any rational can be represented as the ratio of two integers $p/q$. Note the following:
+\begin{cor}
+$\forall n \in \mathbb{N}, \forall a \in \mathbb{R}: a^{-n} = (a^{-1})^n = (\frac{1}{a})^n$
+\end{cor}
+With this corollary, we are able to define the notion of integer powers (as integers have additive inverses not accounted for by natural powers). Now we define rational powers:
+\begin{cor}
+$\forall p, q \in \mathbb{Z}: a^{p/q} = (a^p)^{1/q} = (a^{1/q})^p$
+\end{cor}
+
+\medskip
+\textbf{HW 5 Problem}: Using this corollary, we can prove the following lemma. For this problem assume $a > 1$:
+\begin{lem}
+$\forall m, n, p, q \in \mathbb{Z}: n, q > 0 \land \frac{m}{n} = \frac{p}{q} \implies \forall a > 1: (a^m)^{1/n} = (a^p)^{1/q}$
+\end{lem}
+\begin{proof}
+If $\frac{m}{n} = \frac{p}{q}$, then we know that $mq = np$ where the two are integers. We proceed by casework:
+\begin{enumerate}
+    \item $m, n \geqslant 0: m, n \in \mathbb{N} \land a^{mp} = (a^m)^p \land a^{nq} = (a^n)^q$ by field multiplication properties
+    \item $m < 0, n \geqslant 0$, then $\exists k \in \mathbb{N}: k + m = 0$, so $a^{mp} = a^{-k \cdot p} = a^{-(kp)} = (a^{-1})^{kp} = ((a^{-1})^k)^p \land a^{nq} = (a^n)^q$
+    \item The case $m \geqslant 0, n < 0$ is symmetric
+    \item $m, n < 0$ is the same as the first case as the negative times negative is positive (this can be shown from field properties)
+\end{enumerate}
+In cases 1/4, we once again use multiplicative inverses:
+\begin{equation*}
+    (a^m)^p = (a^n)^q \implies ((a^m)^p)^{-1} \cdot (a^m)^p = ((a^m)^p)^{-1} \cdot (a^n)^q
+\end{equation*}
+We apply corollary 5.1 to get:
+\begin{equation*}
+    1 = (a^m)^{-p} \cdot (a^n)^q = (a^{-m})^ p \cdot (a^n)^q = ((a^{-1})^m)^p \cdot (a^n)^q
+\end{equation*}
+\end{proof}
+
+\medskip
+\begin{lem}
+$\forall r, s \in \mathbb{Q}: a^{r+s} = a^r \cdot a^s$
+\end{lem}
+\begin{proof}
+We let $r = \frac{m}{n}$ and $s = \frac{p}{q}$, where $m, n, p, q \in \mathbb{Z} \land p, q \neq 0$, then $r + s = \frac{m}{n} + \frac{p}{q} = \frac{mq + np}{pq}$. Thus:
+\begin{equation*}
+    a^{r+s} = a^{(mq + np)/pq} = (a^{1/pq})^{mq + np}
+\end{equation*}
+Now $mq + np$ is an integer expression, by field properties, we can rewrite the expression as:
+\begin{equation*}
+    = (a^{1/pq})^mq \cdot (a^{1/pq})^np = (a^{mq/pq}) \cdot (a^{np/pq}) = a^{m/p} \cdot a^{n/q} = a^r \cdot a^s
+\end{equation*}
+\end{proof}
+
+\medskip
+Now that we have defined and proven the properties of rational powers, we need to define real powers, which we do via supremums again leveraging completeness of the underlying ordered field:
+\begin{defn}
+$a^x \coloneq \begin{cases}
+    \sup\{a^z: z \in \mathbb{Q} \land z \leqslant x\}, \ \ a > 1\\
+    \inf\{a^z: z \in \mathbb{Q} \land z \leqslant x\}, \ \ a < 1\\
+    1, \ \ a = 1\\
+    1, \ \ \forall a \in \mathbb{R} \land x = 0
+\end{cases}$
+\end{defn}
+\begin{proof}
+We prove the first case, where if $a > 1$ then $a^x = \sup\{a^z: z \in \mathbb{Q} \land z \leqslant x\}$. We know that $x < x+1$. By density of the rationals:
+\begin{equation*}
+  \exists r \in \mathbb{Q}: x < r < x+1  
+\end{equation*}
+Since $z \leqslant q$, then $z < r$. We now need to prove the lemma:
+\begin{lem}
+$\forall z, r \in \mathbb{Q}: z < r \implies a^z < a^r$. 
+\end{lem}
+If $z < r$, then $a > 1 \implies a^{-1} < 1$ by field properties of multiplication and if $x \in F: x > 0$, then $x^{-1} > 0$ proved in previous homework:
+\begin{equation*}
+    a^{z-r} = (a^{-1})^{r-z} \land a^{-1} < 1 \implies (a^{-1})^{r-z} < 1^{r-z} = 1
+\end{equation*}
+\begin{equation*}
+    \implies a^{z-r} < 1 \iff a^z \cdot a^{-r} < 1 \iff a^z \cdot (a^r)^{-1} < 1 \implies a^z < a^r
+\end{equation*}
+Once again we use the fact that $a > 1 \implies a^r > 1^r > 1 > 0 \implies (a^r)^{-1} > 0$ or that the inverse of a positive element is positive.\\
+
+Therefore $a^z < a^r$, making $a^r$ an upper bound and allowing for the set to admit a supremum. We now want to show that $a^x$ is the least upper bound. Consider any upper bound $a^p: p \in \mathbb{Q}$, then:
+\begin{equation*}
+    \forall z \leqslant x: a^z \leqslant a^p \implies a^x \leqslant a^p
+\end{equation*}
+Then $a^z \leqslant a^p \iff a^p \geqslant a^z$ by the contrapositive of Lemma 5.3 implies that $p \geqslant z$ or $z \leqslant p$. Thus $a^p$ is an upper bound...(not sure what to do after this)
+
+\medskip
+\begin{lem}
+  $\forall x, y \in \mathbb{R}: a^{x+y} = a^x \cdot a^y$  
+\end{lem}
+We define $a^{x+y} = \sup\{a^z: z \in \mathbb{Q} \land z \leqslant x + y\}$.
+\begin{equation*}
+    a^{\tilde{x}+y} = \sup\{a^z: z \in \mathbb{Q} \land z \leqslant \tilde{x} + y\}
+\end{equation*}
+Since $a^y = \sup\{a^p: p \in \mathbb{Q} \land p \leqslant y\}$ and $a^x = \sup\{a^q: q \in \mathbb{Q} \land q \leqslant x\}$:
+\begin{equation*}
+    a^x \cdot a^y = \sup\{a^p\} \cdot \sup\{a^q\}
+\end{equation*}
+Multiplying the supremums combines the predicates in a logical and. By ordered field properties:
+\begin{equation*}
+    q \leqslant x \land p \leqslant y \implies q + p \leqslant x + y
+\end{equation*}
+Thus $a^x \cdot a^y \leqslant \sup\{a^{q+p}: q+ p \leqslant x + y\} = a^{x+y}$. We now prove the opposite inequality, that $a^{x+y} \leqslant a^x \cdot a^y$. We choose a fixed $\tilde{q} \leqslant x$ and a fixed $\tilde{p} \leqslant y$, then:
+\begin{equation*}
+    a^{x+y} = \sup\{a^{p + \tilde{q}}: p + \tilde{q} \leqslant x + y\}
+\end{equation*}
+\begin{equation*}
+    p + \tilde{q} \leqslant x + y \implies p \leqslant x + y - \tilde{q}
+\end{equation*}
+By definition of supremum, we get that $y \leqslant x + y - \tilde{q} \implies \tilde{q} \leqslant x$. Similarly if we fix a $\tilde{p}$ such that:
+\begin{equation*}
+    a^{x+y} = \sup\{a^{\tilde{p} + q}: \tilde{p} + q \leqslant x + y\}
+\end{equation*}
+\begin{equation*}
+    \tilde{p} + q \leqslant x + y \implies q \leqslant x + y - \tilde{p}
+\end{equation*}
+By supremum definition, we get $x \leqslant x + y - \tilde{p} \implies \tilde{p} \leqslant x$. Thus for any arbitary $p$, $q$:
+\begin{equation*}
+    p + q \leqslant x + y \implies p < x \land q < y
+\end{equation*}
+Thus $a^{x+y} \leqslant a^x \cdot a^y$, proving equality.
+
+\end{proof}
 \end{document}
