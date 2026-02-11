@@ -9,7 +9,7 @@
 \usepackage{blindtext}
 \usepackage[margin=1in,footskip=0.25in]{geometry}
 \usepackage[most]{tcolorbox}
-
+\usepackage[dvipsnames]{xcolor}
 
 % if you ever want to ente% Required for inserting images
 
@@ -41,7 +41,7 @@
 }
 
 \tcolorboxenvironment{cor}{
-  colback=pink,
+  colback=SpringGreen,
   colframe=black,
   breakable
 }
@@ -365,9 +365,9 @@ Now that we have the notion of natural powers and $nth$ roots, we can extend thi
 \begin{cor}
 $\forall n \in \mathbb{N}, \forall a \in \mathbb{R}: a^{-n} = (a^{-1})^n = (\frac{1}{a})^n$
 \end{cor}
-With this corollary, we are able to define the notion of integer powers (as integers have additive inverses not accounted for by natural powers). Now we define rational powers:
+With this corollary, we are able to define the notion of integer powers (as integers have additive inverses not accounted for by natural powers). Another property of natural powers and by extension integer powers:
 \begin{cor}
-$\forall p, q \in \mathbb{Z}: a^{p/q} = (a^p)^{1/q} = (a^{1/q})^p$
+$\forall m, n \in \mathbb{N}: a^m \cdot a^n = a^{m+n} \land a^{m \cdot n} = (a^m)^n$
 \end{cor}
 
 \medskip
@@ -376,35 +376,43 @@ $\forall p, q \in \mathbb{Z}: a^{p/q} = (a^p)^{1/q} = (a^{1/q})^p$
 $\forall m, n, p, q \in \mathbb{Z}: n, q > 0 \land \frac{m}{n} = \frac{p}{q} \implies \forall a > 1: (a^m)^{1/n} = (a^p)^{1/q}$
 \end{lem}
 \begin{proof}
-If $\frac{m}{n} = \frac{p}{q}$, then we know that $mq = np$ where the two are integers. We proceed by casework:
-\begin{enumerate}
-    \item $m, n \geqslant 0: m, n \in \mathbb{N} \land a^{mp} = (a^m)^p \land a^{nq} = (a^n)^q$ by field multiplication properties
-    \item $m < 0, n \geqslant 0$, then $\exists k \in \mathbb{N}: k + m = 0$, so $a^{mp} = a^{-k \cdot p} = a^{-(kp)} = (a^{-1})^{kp} = ((a^{-1})^k)^p \land a^{nq} = (a^n)^q$
-    \item The case $m \geqslant 0, n < 0$ is symmetric
-    \item $m, n < 0$ is the same as the first case as the negative times negative is positive (this can be shown from field properties)
-\end{enumerate}
-In cases 1/4, we once again use multiplicative inverses:
+If $\frac{m}{n} = \frac{p}{q}$, then we know that $mq = np$ where the two are integers. If $m/n < 0$, then $p/n < 0$ and same for $m/n \geqslant 0$. Thus the two fractions take on the same sign. Therefore $mq = np$ will either be positive or negative.\\
+
+If $mq = np < 0$, we simply define their additive inverses $m'q' = n'p' > 0$ and use them to construct an equality (eg $-a = -b \iff a = b$ by field properties). So without loss of generality we proceed with $mq = np > 0$:
+\begin{eqnarray}
+    a^{mq} = a^{qm} = (a^q)^m \land a^{np} = a^{pn} = (a^p)^n
+\end{eqnarray}
+This is true by properties of exponentiation with respect to naturals and field multiplication. Thus, by the existence of arbitary roots:
 \begin{equation*}
-    (a^m)^p = (a^n)^q \implies ((a^m)^p)^{-1} \cdot (a^m)^p = ((a^m)^p)^{-1} \cdot (a^n)^q
+    (a^q)^m = (a^p)^n \implies ((a^q)^m)^{1/n} = a^p \implies ((a^m)^q)^{1/n} = a^p
 \end{equation*}
-We apply corollary 5.1 to get:
+We need to show that we can exchange the places of $q$ and $1/n$, so we prove $(a^m)^{1/n} = (a^{1/n})^m: n > 0$:
 \begin{equation*}
-    1 = (a^m)^{-p} \cdot (a^n)^q = (a^{-m})^ p \cdot (a^n)^q = ((a^{-1})^m)^p \cdot (a^n)^q
+    ((a^m)^{1/n})^n = a^m \land ((a^{1/n})^m)^n = (a^{1/n})^{mn} = (a^{1/n})^{nm} = ((a^{1/n})^n)^m = a^m
+\end{equation*}
+Since both expressions to raised to the $n: n > 0$ are equal, then the $nth$ roots are also equal so $(a^m)^{1/n} = (a^{1/n})^m$.\\
+
+So returning to our initial statement:
+\begin{equation*}
+    ((a^m)^q)^{1/n}  = a^p \implies ((a^m)^{1/n})^{q} = a^p \implies (a^m)^{1/n} = (a^p)^{1/q}
 \end{equation*}
 \end{proof}
+\begin{cor}
+$\forall p, q \in \mathbb{Z}, q \neq 0: a^\frac{p}{q} = (a^p)^{1/q} = (a^{1/q})^p$
+\end{cor}
 
 \medskip
 \begin{lem}
 $\forall r, s \in \mathbb{Q}: a^{r+s} = a^r \cdot a^s$
 \end{lem}
 \begin{proof}
-We let $r = \frac{m}{n}$ and $s = \frac{p}{q}$, where $m, n, p, q \in \mathbb{Z} \land p, q \neq 0$, then $r + s = \frac{m}{n} + \frac{p}{q} = \frac{mq + np}{pq}$. Thus:
+We let $r = \frac{m}{n}$ and $s = \frac{p}{q}$, where $m, n, p, q \in \mathbb{Z} \land p, q \neq 0$, then $r + s = \frac{m}{n} + \frac{p}{q} = \frac{mq + np}{pq}$. Thus by corollary 5.3:
 \begin{equation*}
     a^{r+s} = a^{(mq + np)/pq} = (a^{1/pq})^{mq + np}
 \end{equation*}
-Now $mq + np$ is an integer expression, by field properties, we can rewrite the expression as:
+Now $mq + np$ is an integer expression, by corollary 5.2, we can rewrite the expression as:
 \begin{equation*}
-    = (a^{1/pq})^mq \cdot (a^{1/pq})^np = (a^{mq/pq}) \cdot (a^{np/pq}) = a^{m/p} \cdot a^{n/q} = a^r \cdot a^s
+    = (a^{1/pq})^{mq} \cdot (a^{1/pq})^np = (a^{mq/pq}) \cdot (a^{np/pq}) = a^{m/p} \cdot a^{n/q} = a^r \cdot a^s
 \end{equation*}
 \end{proof}
 
@@ -446,37 +454,34 @@ Then $a^z \leqslant a^p \iff a^p \geqslant a^z$ by the contrapositive of Lemma 5
 \begin{lem}
   $\forall x, y \in \mathbb{R}: a^{x+y} = a^x \cdot a^y$  
 \end{lem}
-We define $a^{x+y} = \sup\{a^z: z \in \mathbb{Q} \land z \leqslant x + y\}$.
-\begin{equation*}
-    a^{\tilde{x}+y} = \sup\{a^z: z \in \mathbb{Q} \land z \leqslant \tilde{x} + y\}
-\end{equation*}
+We define $a^{x+y} = \sup\{a^z: z \in \mathbb{Q} \land z \leqslant x + y\}$.\\
+
 Since $a^y = \sup\{a^p: p \in \mathbb{Q} \land p \leqslant y\}$ and $a^x = \sup\{a^q: q \in \mathbb{Q} \land q \leqslant x\}$:
 \begin{equation*}
-    a^x \cdot a^y = \sup\{a^p\} \cdot \sup\{a^q\}
+    a^x \cdot a^y = \sup\{a^q\} \cdot \sup\{a^p\} = \sup\{a^q \cdot a^p\} = \sup\{a^{q+p}\}
 \end{equation*}
-Multiplying the supremums combines the predicates in a logical and. By ordered field properties:
+This follows from Lemma 5.2 and $\sup$ being a homomorphism. Multiplying the supremums combines the predicates in a logical $\land$ and results in a Minkowski product. By ordered field properties:
 \begin{equation*}
     q \leqslant x \land p \leqslant y \implies q + p \leqslant x + y
 \end{equation*}
-Thus $a^x \cdot a^y \leqslant \sup\{a^{q+p}: q+ p \leqslant x + y\} = a^{x+y}$. We now prove the opposite inequality, that $a^{x+y} \leqslant a^x \cdot a^y$. We choose a fixed $\tilde{q} \leqslant x$ and a fixed $\tilde{p} \leqslant y$, then:
+By definition of the set of $a^{x+y}$, we see $\forall q \leqslant x, \forall p \leqslant y: a^{p+q} \in \{a^z: z \leqslant x + y\}$. Therefore:
 \begin{equation*}
-    a^{x+y} = \sup\{a^{p + \tilde{q}}: p + \tilde{q} \leqslant x + y\}
+    \{a^{q+p}\} \subseteq \{a^z\} \implies \sup\{a^{q+p}\} \leqslant \sup\{a^z\} \iff a^x \cdot a^y \leqslant a^{x+y}
 \end{equation*}
-\begin{equation*}
-    p + \tilde{q} \leqslant x + y \implies p \leqslant x + y - \tilde{q}
-\end{equation*}
-By definition of supremum, we get that $y \leqslant x + y - \tilde{q} \implies \tilde{q} \leqslant x$. Similarly if we fix a $\tilde{p}$ such that:
-\begin{equation*}
-    a^{x+y} = \sup\{a^{\tilde{p} + q}: \tilde{p} + q \leqslant x + y\}
-\end{equation*}
-\begin{equation*}
-    \tilde{p} + q \leqslant x + y \implies q \leqslant x + y - \tilde{p}
-\end{equation*}
-By supremum definition, we get $x \leqslant x + y - \tilde{p} \implies \tilde{p} \leqslant x$. Thus for any arbitary $p$, $q$:
-\begin{equation*}
-    p + q \leqslant x + y \implies p < x \land q < y
-\end{equation*}
-Thus $a^{x+y} \leqslant a^x \cdot a^y$, proving equality.
+Thus $a^x \cdot a^y = \sup\{a^{q+p}: p \leqslant y \land q \leqslant x\} \leqslant \sup\{a^{z}: z \leqslant x + y\}  = a^{x+y}$. \\
 
+We now prove the opposite inequality, that $a^{x+y} \leqslant a^x \cdot a^y$. We choose a fixed $\tilde{q} \leqslant x$ and a fixed $\tilde{p} \leqslant y$, then:
+\begin{equation*}
+    a^{x+y} = \sup\{a^{z}: z \leqslant x + y\}
+\end{equation*}
+For every z, we can pick $\tilde{p}, \tilde{q}$ such that:
+\begin{equation*}
+    \forall z \leqslant x + y: \exists \tilde{p}, \tilde{q}: z \leqslant \tilde{p} + \tilde{q} \leqslant x + \tilde{p} \leqslant x + y
+\end{equation*}
+Thus $a^z \leqslant a^{\tilde{p} + \tilde{q}}$ by lemma 5.3, which means that since the choices of $\tilde{p}, \tilde{q}$ were arbitrary:
+\begin{equation*}
+    a^{x+y} = \sup\{a^z: z \leqslant x + y\} \leqslant \sup\{a^{q+p}: q \leqslant x \land p \leqslant y\} = a^x \cdot a^y
+\end{equation*}
+Thus proving $a^{x+y} = a^x \cdot a^y$.
 \end{proof}
 \end{document}
