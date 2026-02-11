@@ -52,6 +52,7 @@
   breakable
 }
 
+\setlength{\parindent}{0pt}
 
 \begin{document}
 
@@ -194,7 +195,7 @@ We talk about pairs (or n-tuples) of numbers such as $(1, 2)$ or $(x, y)$. Howev
 \pagebreak
 
 %---------------------------------------------------------------------%
-\section{Properties of the Reals}
+\section{Isomorphisms of Dedekind Cuts and Ordered Fields}
 So far we have constructed the reals or $\mathbb{R}$ as the set of Dedekind cuts, which are the set of rationals less than that real number. By allowing for completeness, we can show that each cut admits an upper bound so it admits a supremum.\\
 
 The supremum is the real number itself; however, quantifying the supremum will require the existence of an algebraic structure that encompasses the supremum. If we solely rely on $\mathbb{Q}$, then certain cuts may not admit supremums in $\mathbb{Q}$.\\
@@ -207,14 +208,14 @@ So we say there exists some complete ordered field $(F, +, 0, \cdot, 1, \leqslan
 \begin{proof}
 Assume $F$ does not have characteristic 0. Then $\sum_{k=1}^{n}(1) = 0$ for an arbitrary n. We then know that $0 < 1$, by ordered field properties:
 \begin{equation*}
-    0 < 1 \implies \sum_{k=1}^{n-1}(1) < \sum_{k=1}^{n-1}(1) _ 1 = \sum_{k=1}^{n}(1) = 0
+    0 < 1 \implies 0 < \sum_{k=1}^{n-1}(1) < \sum_{k=1}^{n-1}(1) + 1 = \sum_{k=1}^{n}(1)
 \end{equation*}
 Now assume the inequality to be true, then by mulitplicative property of ordered fields:
 \begin{equation*}
-    \implies \sum_{k=1}^{n-1}(1) \cdot \sum_{k=1}^{n-1}(1) < 0
+    \implies \sum_{k=1}^{n-1}(1) \cdot \sum_{k=1}^{n-1}(1) < \sum_{k=1}^{n}(1) \cdot \sum_{k=1}^{n-1}(1)
 \end{equation*}
 \begin{eqnarray}
-    \iff (n-1)^2 = n^2 - 2n + 1 < 0
+    \iff (n-1)^2 = n^2 - 2n + 1 < n(n-1) = n^2 - n
 \end{eqnarray}
 We know that $n$ or $1$ added $n$ times repeatedly is equal to zero, so we get:
 \begin{equation*}
@@ -235,10 +236,23 @@ The rationals of different fields are isomorphic
 \end{thm}
 \noindent So there exists an isomorphism we call $\psi: \mathbb{Q} \xrightarrow{} \mathbb{Q}_F$. Since the Dedekind cuts are merely sets of rationals, then we can construct cuts in $F$ which we call $\mathbb{R}_F$. We can extend $\psi: \mathbb{R} \xrightarrow{} \mathbb{R}_F$.\\
 
+\begin{thm}
+    $\forall A \in \mathbb{R}_F: (\exists b \in F, \forall a \in A: a \leqslant b): \sup: A \xrightarrow{} F$ and $\sup$ is an isomorphism
+\end{thm}
+\noindent This lemma is essentially the restatement of the completeness of $F$. If we take any subset bounded above, then it admits a supremum. However, here we define the supremum as a map from a set to an element in the field. We prove it is an isomorphism for a cut specifically. We require the lemma:
 \begin{lem}
-    $\forall A \subseteq \mathbb{R}_F: (\exists b \in F, \forall a \in A: a \leqslant b): \sup: A \xrightarrow{} F$ and $\sup$ is an isomorphism
+    $\forall A \in \mathbb{R}_F: A = \{a \in \mathbb{Q}_F: a < \sup(A)\}$
 \end{lem}
-\noindent This lemma is essentially the restatement of the completeness of $F$. If we take any subset bounded above, then it admits a supremum. However, here we define the supremum as a map from a set to an element in the field. We prove it is an isomorphism for a cut specifically:
+\noindent For now we only show the inclusion $A \subseteq \{a \in \mathbb{Q}_F: a < \sup(A)\}$.
+\begin{proof}
+If $x \in A$, then $x \leqslant \sup(A)$. If $x = \sup(A) \implies \sup(A) \in A$. By the definition of Dedekind cut's, there cannot be a maximal element, so:
+\begin{equation*}
+    \exists b \in A: \sup(A) < b \land b \leqslant \sup(A)
+\end{equation*}
+The second inequality comes from the supremum definition. We see that we get a contradiction, so $\sup(A) \notin A$, thus $\forall a \in A: a < \sup(A)$.
+\end{proof}
+
+\noindent We now return to proving the theorem at hand.
 \begin{proof}
 For the sake of brevity we assume $\sup$ is a homomorphism (which means that it respects the operations of sets and the field). We aim to show injectivity:
 \begin{equation*}
@@ -248,9 +262,29 @@ If two cuts are not equal, then either $A \subset B \lor B \subset A$. Assume wi
 \begin{equation*}
     \exists b \in B, \forall a \in A: a < b
 \end{equation*}
-This inequality we can derive from the ordering of $F$ and the construction of the cuts. Then $b$ is an upper bound for $A$ and by definition of supremum $\sup(A) \leqslant b$.
+This inequality we can derive from the ordering of $F$ and the construction of the cuts. Then $b$ is an upper bound for $A$ and by definition of supremum $\sup(A) \leqslant b$. So by the lemma $a < \sup(A) \leqslant b < \sup(B)$. Thus $\sup(A) < \sup(B)$, proving injectivity of $\sup$.
 \end{proof}
 
+\begin{proof}
+We now prove the surjectivity of $\sup$:
+\begin{equation*}
+    \forall x \in F, \exists A \in \mathbb{R}_F: \sup(A) = x
+\end{equation*}
+Assume for a certain $x \in F$, that there does not exist an $A \in \mathbb{R}_F$ such that $\sup(A) = x$. Then all Dedekind cuts must admit a supremum in $F$ as they are bounded above. (The following part may be a bit hand wavy :), but in essence by means of pigeonhole principle (whose proof we detailed before), two different cuts will then share the same supremum, which breaks injectivity. 
+\end{proof}
+
+\medskip
+\begin{thm}
+For all ordered fields $(F, +, 0, \cdot, 1, \leqslant)$, we find that $\mathbb{R} \cong F$.
+\end{thm}
+The proof of this is simply a combination of the previous theorems and lemmas. We know that $\psi: \mathbb{R} \xrightarrow{} \mathbb{R}_F$ is an isomorphism and $\sup: \mathbb{R}_F \xrightarrow{} F$ is also an isomorphism. The composition is therefore an isomorphism:
+\begin{equation*}
+    \sup \circ \psi: \mathbb{R} \xrightarrow{} F
+\end{equation*}
+So the Dedekind cut representation of the reals are isomorphic to any ordered field. So now instead of dealing with the reals as a set of Dedekind cuts, we can deal with it as an ordered field of the supremums of the Dedekind cuts. So $\sqrt{2}$ is a supremum of the cut, so we can explicitly refer to the cut as $\sqrt{2}$ itself even though the cut does not admit a supremum in $\mathbb{Q}$. 
+\pagebreak
+
+\section{Properties of the Reals}
 
 
 

@@ -3,4 +3,5 @@
 \contentsline {subsection}{\numberline {2.1}Naive Set Theory}{4}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Zermelo Fraenkel}{4}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Ordered Pairs and Relations}{6}{section.3}%
-\contentsline {section}{\numberline {4}Properties of the Reals}{7}{section.4}%
+\contentsline {section}{\numberline {4}Isomorphisms of Dedekind Cuts and Ordered Fields}{7}{section.4}%
+\contentsline {section}{\numberline {5}Properties of the Reals}{9}{section.5}%
