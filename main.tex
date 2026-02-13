@@ -656,7 +656,7 @@ This case does not require axiom of choice however, due to the well ordering pri
 
 \medskip
 \begin{defn}
-A countable set $A$ is one that is either finite or $\exists f$ such that $f: \mathbb{N} \xrightarrow{} A$ is a bijection
+A countable set $A$ is one such that $\exists f$ such that $f: \mathbb{N} \xrightarrow{} A$ is a bijection
 \end{defn}
 We now exmaine countable sets. We will show results such as $\mathbb{Q}$ being countable, or the set of algebraic reals being countable, which on surface seem counterintuitive.\\
 
@@ -664,8 +664,143 @@ We now exmaine countable sets. We will show results such as $\mathbb{Q}$ being c
 \begin{thm}
 If $A$ is countable, then $\forall B \subseteq A: B \ \text{infinite} \implies B \ \text{countable}$
 \end{thm}
+\begin{proof}
 We first see that $A$ is infinite as well as it has an infinite subset (How can we prove this?)\\
 
+Since $A$ is countable, then we can find some bijection $f: \mathbb{N} \xrightarrow{} A$. We then define $f^{-1}(B) = \tilde{B} \subseteq \mathbb{N}$. If $B$ is to be countable, then $\tilde{B}$ should also be countable. We prove by induction:\\
 
+Let $B_0$ be our base case such that $B_0 = \tilde{B}$. We know that if $B$ is infinite then $\tilde{B}$ must be infinite (why?). We then define the following:
+\begin{equation*}
+    B_{k+1} = \begin{cases}
+        \varnothing: \ \ B_k = \varnothing\\
+        B_k \setminus \{\inf(B_k)\}: \ \ B_k \neq \varnothing
+    \end{cases}
+\end{equation*}
+Since we are dealing with sets of naturals, we do not require Axiom of Choice for this infinite family. By the well ordering principle, we can pick out the infimum of each set.\\
+
+If $B_{k+1}$ is infinite, then we see that $B_k = B_{k+1} \cup \{\inf(B_k)\}$, so $B_k$ is also infinite. What we have done is created the ocuntable sequence of sets:
+\begin{equation*}
+    \{B_k\}_{k \in \mathbb{N}} \coloneq (B_0, B_1, B_2, ..., B_k, B_{k+1},...) \ \text{such that} \ B_k = B_{k+1} \cup \inf(B_k)
+\end{equation*}
+If we manipulate the defining proposition of the sequence, we see that $B_k \setminus B_{k+1} = \inf(B_k)$.\\
+
+So if we define some function $h: \mathbb{N} \xrightarrow{} \{B_k\}$, we get a bijection as there is a countable number of sets. We define the $\inf$ function:
+\begin{equation*}
+    \inf: \{B_k\}  \xrightarrow{} \tilde{B}
+\end{equation*}
+We first see that $\inf$ is injective. So $\forall B_x, B_y \in \{B_n\}: \inf(B_x) = \inf(B_y) \implies B_x = B_y$. Imagine $B_x \neq B_y$, then $B_x \subset B_y \lor B_y \subset B_x$. Assume without loss of generality that $B_x \subset B_y$:
+\begin{equation*}
+    \exists y \in B_y: y \notin B_x
+\end{equation*}
+Since each $B_k$ is infinite (implying the sets are not bounded above) and $B_x \subset B_y$, then $\forall x \in B_x: y < x$ by the ordering of the naturals. Thus $y$ is a lower bound for $B_x$ but $\inf(B_x) \in B_x$, so $y \neq \inf(B_x)$. Then:
+\begin{equation}
+    y \in B_y \land y \neq \inf(B_x) \implies \inf(B_y) \leqslant y < \inf(B_x)
+\end{equation}
+The inequality $y < \inf(B_x)$ follows from the fact that $y \neq \inf(B_x)$ and if $y > \inf(B_x)$, then $y \in B_x$ which it is not by definition. Thus $\inf(B_y) < \inf(B_x)$ proving the statement by contrapositive.\\
+
+We now see that $\inf$ is surjective. $\forall b \in \tilde{B}, \exists B_k: \inf(B_k) = b$. This follows from the well ordering property, that every subset of the naturals has an infimum. So if we pick any element of $B$ which is a subset of the naturals, then through the recursive process, we can find a set:
+\begin{equation*}
+    \exists n \in \mathbb{N}: B_n \coloneq \{x \in \tilde{B}: b \leqslant x\}
+\end{equation*}
+The infimum of this set is $b$ and $B_n$ is a valid element in $\{B_k\}$ as it is either $\tilde{B} = B_0$ itself, or is a proper subset, which in that case $\exists B_{m}: B_{m} \subseteq B_0 \land B_n = B_m\setminus \inf(B_m)$.\\
+
+Now that we know $\inf$ is also a bijection, we can construct a bijection $\inf \circ h: \mathbb{N} \xrightarrow{} \tilde{B}$ which means that $\tilde{B}$ is countable. Now:
+\begin{equation*}
+    \exists g: g: \tilde{B} \xrightarrow{} B \ \text{such that g is a bijection}
+\end{equation*}
+Thus $g \circ \inf \circ h: \mathbb{N} \xrightarrow{} B$, and the composition of two bijections is a bijection, showing that $B$ is countable.
+\end{proof}
+
+\medskip
+\begin{cor}
+For any set $A$: A finite or countable $\iff$ $\exists f: A \xrightarrow{} \mathbb{N}$ such that $f$ is an injection
+\end{cor}
+\begin{proof}
+We examine the forward direction first. If $A$ is finite, then by definition 6.2 it is bijective to the subset of the first $n$ naturals, thus $f$ is an injection. If it is countable and not finite, then by definition 6.3, $f$ is a bijection so it is an injection.\\
+
+For the converse, if $f$ is an injection, that means $\text{Ran}(f) \subseteq \mathbb{N}$. If $\text{Ran}(f) = \mathbb{N}$, then $f$ is also a surjection, so $A$ is infinite and countable.\\
+
+If $\text{Ran}(f) \subset \mathbb{N}$, then if the range is infinite by Thm 6.1, it is countable, so there exists a bijection between $A$ and $\mathbb{N}$, so $A$ is countable.\\
+
+Finally, if $\text{Ran}(f)$ is finite, then there exists a bijection between $A$ and the first $n$ naturals, so $A$ is finite.
+\end{proof}
+
+\medskip
+\begin{lem}
+If $A$ and $B$ are countable, then $A \times B$ is countable
+\end{lem}
+\begin{proof}
+We define bijections $f: \mathbb{N} \xrightarrow{} A \land g: \mathbb{N} \xrightarrow{} B$. We can define a function $h: A \times B \xrightarrow{} \mathbb{N} \times \mathbb{N}$ such that $h(a, b) = (f^{-1}(a), g^{-1}(b))$.\\
+
+We see that $h$ is a surjection:  This is supported by the bijections $f, g$.
+\begin{equation*}
+    \forall (m, n) \in \mathbb{N} \times \mathbb{N}, \exists (f(m), g(n)) \in A \times B: h((f(m), g(n))) = (m, n)
+\end{equation*}
+We now prove that $h$ is an injection: $\forall (a, b), (a', b') \in A \times B: h(a, b) = h(a', b') \implies (a, b) = (a', b')$:
+\begin{equation*}
+    h(a, b) = h(a', b') \implies f^{-1}(a) = f^{-1}(a') \land g^{-1}(b) = g^{-1}(b')
+\end{equation*}
+Since $f, g$ are bijections, their inverses are bijections, so they are also injections, thus $a = a' \land b = b'$.\\
+
+We now define a map $\psi: \mathbb{N} \times \mathbb{N} \xrightarrow{} \mathbb{N}$ such that $\psi(m, n) = \frac{1}{2}(m+n)(m+n+1) + m$. This is called the Cantor Pairing Function. We see that every natural number can be represented by this (why?).\\
+
+We now prove it is an injection. Given two ordered pairs $(m, n), (m', n')$, if $m < m'$, then $\psi(m, n) < \psi(m', n')$. If $m = m. \land n < n'$, then we see again $\psi(m, n) < \psi(m', n')$. So $\psi$ is strictly monotonic, therefore it is an injection as we have a total lexicographic ordering of the ordered pairs.\\
+\end{proof}
+\medskip
+\begin{thm}
+The set $\mathbb{Q}$ is infinite and countable
+\end{thm}
+\begin{proof}
+If $\mathbb{Q}$ were not infinite, then $\exists t \in \mathbb{Q}, \forall r \in \mathbb{Q}: r \leqslant t$. Every rational can be written as $\frac{p}{q}: p, q \in \mathbb{Z} \land q \neq 0$. The naturals are infinite, implying the integers are infinite, so:
+\begin{equation*}
+    \exists p, q \in \mathbb{Z}: t = \frac{p}{q} \land q > 0
+\end{equation*}
+However, since $\mathbb{Z}$ is infinite, $p+1 > p$. So we can construct a rational $s \in \mathbb{Q}$, such that:
+\begin{equation*}
+    s = \frac{p+1}{q} = \frac{p}{q} + \frac{1}{q} = t + \frac{1}{q}
+\end{equation*}
+Since $q> 0$, then by field properties $q^{-1} = 1/q > 0$. If $q < 0$, then we simply use $p-1$. So we can show there exists a larger rational, thus $\mathbb{Q}$ is infinite.\\
+
+We can say that the set of positive rationals is countable through the Cantor "Snake" argument by arranging them in a table of naturals minus 0 as rows and as columns. A similar thing can be done with negative integers for the negative rationals. We let $\psi$ be the function that takes in a positive or negative rational and outputs its "place".\\
+
+Each positive and negative rational will appear in the same place by construction (it has the same natural number assigned to it). We formalize it as below:
+\begin{equation*}
+    \forall r \in \mathbb{Q}^+: \phi(r) = 2\psi(r) = 2n
+\end{equation*}
+Here $n$ is the place of the positive rational in the Cantor Snake argument. For negative rationals:
+\begin{equation*}
+    \forall q \in \mathbb{Q}^-: \phi(q) = 2\psi(q) - 1 = 2n-1
+\end{equation*}
+Finally $\phi(0) = 0$. So all the negative rationals map to the odd naturals, while the positive rationals map to the even naturals. We see that this is an injection as if two rationals have the same value of $\phi$, then they must be both greater/less than 0.\\
+
+Since the set of positive/negative rationals are bijective to the naturals, then the two rationals must be unique. Thus $\text{Ran}(\phi) \subseteq \mathbb{N}$, and because the rationals are infinite, the range is infinite. Thus by Thm 6.1, the range is countable.
+\end{proof}
+\pagebreak
+
+\section{Uncountable Sets}
+\begin{thm}
+The set of sequences $\{0, 1\}^\mathbb{N}$ is uncountable
+\end{thm}
+We utilize Cantor's Diagonal argument for this theorem.
+\begin{proof}
+We let $f: \mathbb{N} \xrightarrow{} \{0, 1\}^\mathbb{N}$. We construct a sequence $\{x_n\}_{n \in \mathbb{N}}: x_n = 1 - f(n)_n$.\\
+
+Since every $nth$ term in this new sequence is different from the $nth$ sequence, the sequence does not belong in $\text{Im}(f)$, so $f$ is not surjective, meaning $\{0, 1\}^\mathbb{N}$ is uncountable.
+\end{proof}
+
+\medskip
+\begin{lem}
+The set of functions $\{0, 1\}^\mathbb{R}$ is uncountable
+\end{lem}
+We once again utilize Cantor's Diagonal argument for this lemma.
+\begin{proof}
+This time we deal with graphs of functions and not sequences. Each function $f: \mathbb{R} \xrightarrow{} \{0, 1\}$. We also have $\phi: \mathbb{N} \xrightarrow{} \{f\}$.\\
+
+We define $h: \mathbb{R} \xrightarrow{} \{0, 1\}$ as the graph where the $nth$ tuple of the $nth$ function is $(n, 1- f_n(n))$.\\
+
+However, this implies that the graph of $f$ is countable, meaning the domain of $f$ is also countable, which contradicts that $\text{Dom}(f) = \mathbb{R}$. As a result, in order to construct a new function $h$, we require $\mathbb{R}$ functions $f$, xhowing that $\{f\} = \{0, 1\}^\mathbb{R}$ is uncountable.
+\end{proof}
+
+\medskip
 
 \end{document}
