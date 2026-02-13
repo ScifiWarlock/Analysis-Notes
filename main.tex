@@ -360,10 +360,11 @@ We now prove the uniqueness of the $n-th$ root. Assume there are two $n-th$ root
 Since the supremum is unique, then if $y = \sup(A) = \tilde{y}$, then $y$ must equal $\tilde{y}$, so the $nth$ root is unique.
 \end{proof}
 
-\medskip
+\centerline{\rule{\textwidth}{0.4pt}}
+\bigskip
 Now that we have the notion of natural powers and $nth$ roots, we can extend this to rational roots. We know that any rational can be represented as the ratio of two integers $p/q$. Note the following:
 \begin{cor}
-$\forall n \in \mathbb{N}, \forall a \in \mathbb{R}: a^{-n} = (a^{-1})^n = (\frac{1}{a})^n$
+$\forall n \in \mathbb{N}, \forall a \in \mathbb{R}: a^{-n} = (a^{-1})^n = (\frac{1}{a})^n \land a^0 = 1$
 \end{cor}
 With this corollary, we are able to define the notion of integer powers (as integers have additive inverses not accounted for by natural powers). Another property of natural powers and by extension integer powers:
 \begin{cor}
@@ -415,6 +416,21 @@ Now $mq + np$ is an integer expression, by corollary 5.2, we can rewrite the exp
     = (a^{1/pq})^{mq} \cdot (a^{1/pq})^np = (a^{mq/pq}) \cdot (a^{np/pq}) = a^{m/p} \cdot a^{n/q} = a^r \cdot a^s
 \end{equation*}
 \end{proof}
+The idea of multiplicative inverses can now be brought about for rational powers. Let $p, q, m, n \in \mathbb{Z}: q, n \neq 0$, then:
+\begin{equation*}
+    a^{p/q} \cdot a^{m/n} = (a^{1/pq})^{mq + np} = 1
+\end{equation*}
+Using corollary 5.1, we account for the sign of $mq + np$. If the expression is greater than zero, than it is a natural number. If it is less than zero, we define its additive inverse $(mq + np)' > 0$ by field properties and change the base from $a$ to $a^{-1}$ as per the corollary.\\
+
+Without loss of generality we proceed with the first case. Once again by corollary 5.1 stating that $a^0 = 1$:
+\begin{equation*}
+    mq + np = 0 \implies np = -mq
+\end{equation*}
+So by Lemma 5.2, $(a^{1/pq})^{mq + np} = (a^{1/pq})^{mq} \cdot (a^{1/pq})^{np} = (a^{1/pq})^{mq} \cdot (a^{1/pq})^{-mq}$. Since $mq \in \mathbb{Z}$, we again apply corollary 5.1 and 5.3:
+\begin{equation*}
+    (a^{1/pq})^{mq} \cdot (a^{1/pq})^{-mq} = a^{m/p} \cdot a^{-m/p} = 1
+\end{equation*}
+So we see that $(a^{m/p})^{-1} = a^{-m/p} = (a^{-1})^{m/p}$.
 
 \medskip
 Now that we have defined and proven the properties of rational powers, we need to define real powers, which we do via supremums again leveraging completeness of the underlying ordered field:
@@ -423,11 +439,10 @@ $a^x \coloneq \begin{cases}
     \sup\{a^z: z \in \mathbb{Q} \land z \leqslant x\}, \ \ a > 1\\
     \inf\{a^z: z \in \mathbb{Q} \land z \leqslant x\}, \ \ a < 1\\
     1, \ \ a = 1\\
-    1, \ \ \forall a \in \mathbb{R} \land x = 0
 \end{cases}$
 \end{defn}
 \begin{proof}
-We prove the first case, where if $a > 1$ then $a^x = \sup\{a^z: z \in \mathbb{Q} \land z \leqslant x\}$. We know that $x < x+1$. By density of the rationals:
+We prove the first case, where if $a > 1$ and $x \in \mathbb{Q}$, then $a^x = \sup\{a^z: z \in \mathbb{Q} \land z \leqslant x\}$. We know that $x < x+1$. By density of the rationals:
 \begin{equation*}
   \exists r \in \mathbb{Q}: x < r < x+1  
 \end{equation*}
@@ -435,20 +450,24 @@ Since $z \leqslant q$, then $z < r$. We now need to prove the lemma:
 \begin{lem}
 $\forall z, r \in \mathbb{Q}: z < r \implies a^z < a^r$. 
 \end{lem}
-If $z < r$, then $a > 1 \implies a^{-1} < 1$ by field properties of multiplication and if $x \in F: x > 0$, then $x^{-1} > 0$ proved in previous homework:
+If $z < r$, and $a > 1$, we see that $a^{r-z} > a > 1$ so by Lemma 5.2:
 \begin{equation*}
-    a^{z-r} = (a^{-1})^{r-z} \land a^{-1} < 1 \implies (a^{-1})^{r-z} < 1^{r-z} = 1
+    a^{r-z} = a^r \cdot a^{-z} = a^r \cdot (a^z)^{-1} > 1
 \end{equation*}
+Since $a > 1 > 0$, then $a^z > a > 0$. So if $(a^z)^{-1} < 0$. Thus:
 \begin{equation*}
-    \implies a^{z-r} < 1 \iff a^z \cdot a^{-r} < 1 \iff a^z \cdot (a^r)^{-1} < 1 \implies a^z < a^r
+    a^r \cdot (a^z)^{-1} > 1 \implies 1 \cdot a^z < a^r \cdot (a^z)^{-1} \cdot a^z \iff a^z < a^r
 \end{equation*}
-Once again we use the fact that $a > 1 \implies a^r > 1^r > 1 > 0 \implies (a^r)^{-1} > 0$ or that the inverse of a positive element is positive.\\
 
-Therefore $a^z < a^r$, making $a^r$ an upper bound and allowing for the set to admit a supremum. We now want to show that $a^x$ is the least upper bound. Consider any upper bound $a^p: p \in \mathbb{Q}$, then:
+Therefore $a^r$ is an upper bound, allowing for the set to admit a supremum. We now want to show that $a^x$ is the least upper bound. Consider any upper bound $a^p: p \in \mathbb{Q}$, then:
 \begin{equation*}
     \forall z \leqslant x: a^z \leqslant a^p \implies a^x \leqslant a^p
 \end{equation*}
-Then $a^z \leqslant a^p \iff a^p \geqslant a^z$ by the contrapositive of Lemma 5.3 implies that $p \geqslant z$ or $z \leqslant p$. Thus $a^p$ is an upper bound...(not sure what to do after this)
+If $a^p < a^x$, then $a^{x-p} > 1$. Since $a > 1$, then $a^{x-p} > a > 1$ only if $x > p$.
+\begin{equation*}
+    p < x \land z \leqslant x \implies \exists z \leqslant x: p < z \implies a^p < a^z
+\end{equation*}
+Thus, $a^p$ is not an upper bound for all $a^z$, so we have proven the statement by contrapositive.
 
 \medskip
 \begin{lem}
@@ -460,7 +479,7 @@ Since $a^y = \sup\{a^p: p \in \mathbb{Q} \land p \leqslant y\}$ and $a^x = \sup\
 \begin{equation*}
     a^x \cdot a^y = \sup\{a^q\} \cdot \sup\{a^p\} = \sup\{a^q \cdot a^p\} = \sup\{a^{q+p}\}
 \end{equation*}
-This follows from Lemma 5.2 and $\sup$ being a homomorphism. Multiplying the supremums combines the predicates in a logical $\land$ and results in a Minkowski product. By ordered field properties:
+This follows from Lemma 5.2 and $\sup$ being a homomorphism. Multiplying the supremums combines the predicates in a logical $\land$ and results in a Minkowski product $\{a^{q+p}: q \leqslant x \land p \leqslant y\}$. By ordered field properties:
 \begin{equation*}
     q \leqslant x \land p \leqslant y \implies q + p \leqslant x + y
 \end{equation*}
@@ -474,20 +493,179 @@ We now prove the opposite inequality, that $a^{x+y} \leqslant a^x \cdot a^y$. We
 \begin{equation*}
     a^{x+y} = \sup\{a^{z}: z \leqslant x + y\}
 \end{equation*}
-For every z, we can pick $\tilde{p}, \tilde{q}$ such that:
+For every z, we can pick $\tilde{p}, \tilde{q}$ such that by Lemma 5.3:
 \begin{equation*}
     (\forall z \in x+y: \exists \tilde{p} \leqslant y, \tilde{q} \leqslant x): z \leqslant \tilde{p} + \tilde{q} \implies a^z \leqslant a^{\tilde{p} + \tilde{q}} = a^{\tilde{p}} \cdot a^{\tilde{q}}
 \end{equation*}
 Which means that since the choices of $\tilde{p}, \tilde{q}$ were arbitrary:
 \begin{equation*}
-    \{a^z: z \leqslant x + y\} \subseteq \{a^{q+p}: q \leqslant x \land p \leqslant y\}
+    \forall z \leqslant x + y: a^z \leqslant a^{\tilde{p}} \cdot a^{\tilde{q}} \leqslant a^x \cdot a^y
 \end{equation*}
+By definition of supremum, $a^{x+y}$ is the least upper bound for all $a^z$ and we have shown that $a^x \cdot a^y$ is an upper bound, so:
 \begin{equation*}
-    a^{x+y} = \sup\{a^z: z \leqslant x + y\} \leqslant \sup\{a^{q+p}: q \leqslant x \land p \leqslant y\} = a^x \cdot a^y
+    a^z \leqslant a^x \cdot a^y \implies a^{x+y} \leqslant a^x \cdot a^y
 \end{equation*}
-Thus proving $a^{x+y} = a^x \cdot a^y$.
+Thus proving $a^{x+y} = a^x \cdot a^y$. This forces a multiplicative inverse to exist such that $a^x \cdot a^y = a ^ 0 = 1 \implies x + y = 0 \implies y = -x$. Thus $(a^x)^{-1} = a^{-x}$.
 \end{proof}
 
-\medskip
+\centerline{\rule{\textwidth}{0.4pt}}
+\bigskip
 Now that we have defined exponentiation with respect to a real valued base, along with elementary operations, we aim to define the inverse of exponentiation, which is the logarithm.
+\begin{thm}
+The exponential function: $f: \mathbb{R} \xrightarrow{} \mathbb{R}^+ \setminus \{0\}$ is a bijection
+\end{thm}
+We define $f(x) = b^x$ for any $a \in \mathbb{R}^+$. The proof is the same if $b > 1$ or $b < 1$. Then:
+\begin{proof}
+$f$ is injective if $\forall x, y \in \mathbb{R}^+: b^x = b^y \implies x = y$. We can use Lemma 5.4 and multiplicative inverses:
+\begin{equation*}
+    b^x = b^y \implies b^x \cdot (b^y)^{-1} = 1 \implies b^x \cdot b^{-y} = b^{x-y} = 1
+\end{equation*}
+Since $b > 1$, then by the definition of exponentiation, $x-y = 0$, so $x = y$.\\
+
+If $f$ is surjective, then $\forall y \in \mathbb{R}^+. \exists x \in \mathbb{R}: b^x = y$. Here $x$ is called the logarithm of $y$ base $b$.\\
+
+We fix $a > 1$, then by the results of problem 1:
+\begin{equation*}
+    a^n - 1 = (a-1)\sum_{k=0}^{n-1}a^k \cdot 1^{n-k-1} = (a-1)\sum_{k=0}^{n-1}a^k \geqslant \sum_{k=0}^{n-1}1^k = n(a-1) 
+\end{equation*}
+Now if we let $a$ be the nth root of $b$ such that $a = b^{1/n} > 1$, then:
+\begin{equation*}
+    a^n - 1 \geqslant n(a-1) \implies b - 1 \geqslant n(b^{1/n} - 1)
+\end{equation*}
+If $t > 1$ and $n > (b-1)/(t-1)$, then $b^{1/n} < t$:
+\begin{equation*}
+    n(b^{1/n}-1) \leqslant b - 1 < n(t-1) \implies b^{1/n} - 1 < t-1 \implies b^{1/n} < t
+\end{equation*}
+If $w$ is such that $b^w < y$, then $b^{w + (1/n)} < y$ for sufficiently large $n$; to see this, apply part (c) to $t = y \cdot b^{-w}$.
+\begin{equation*}
+    b^{1/n} < t \implies b^{1/n} < y \cdot b^{-w} \implies b^{(1/n) + w} < y
+\end{equation*}
+If $b^w > y$, then $b^{w - (1/n)} > y$ for sufficiently large $n$. Let $t = y^{-1} \cdot b^w > 1$:
+\begin{equation*}
+    b^{1/n} < t \implies b^{1/n} < y^{-1} \cdot b^w \implies y < b^{w - (1/n)}
+\end{equation*}
+Let $A$ be the set of all $w$ such that $b^w < y$, and show that $x = \sup(A)$ satisfies $b^x = y$.\\
+
+If $b^x > y$, then $b^{x - (1/n)} > y$, which means that $x - \frac{1}{n}$ is a smaller lower bound, so $b^x$ is not greater than $y$. If $b^x < y$, then $b^{x + (1/n)} < y$, so $x + \frac{1}{n} \in A$, but $x < x + \frac{1}{n} \notin A$, showing a contradiction.\\
+
+Thus $b^x = y$ and $x = \sup(A)$, proving the existence of a logarithm of $y$ base $b$ for any $y \in \mathbb{R}^+$, showing surjection. The uniqueness of $x$ can be derived from the injection or also through supremums:
+\begin{equation*}
+    b^x = b^{x'} = y \implies x = \sup(A) \land x' = \sup(A)
+\end{equation*}
+Since the supremum is unique, then $x = x'$, showing injectivity, thus $f$ is a bijection and therefore has an inverse which we will call $\log$.
+\end{proof}
+\begin{cor}
+$\log_b: \mathbb{R}^+ \setminus \{0\} \xrightarrow{} \mathbb{R}$ such that $log_b(y) = x$
+\end{cor}
+Then the composition of $\log_b(b^x) = x$ and $b^{\log_b(x)} = x$. Here we see the $\log_b$ acting as a left and right inverse, which is the expected behavior of the inverse of a bijective function. (Remember a surjection only has a right inverse, and an injection only has a left inverse).
+\pagebreak
+
+%-------------------------------------------------------------------------%
+\section{Countability and Cardinality}
+The natural numbers or $\mathbb{N}$ are the backbone of the idea of "counting". When we say $0, 1, 2, 3...$ so on and so forth, we are iterating through the naturals. We define the following:
+\begin{defn}
+    The first $n$ naturals are $[0, n) \coloneq \{k \in \mathbb{N}: k < n\}$
+\end{defn}
+We can now introduce the notion of a finite set.
+\begin{defn}
+    A finite set $A$ is a set such that $\exists f, \exists n \in \mathbb{N}: f: [0, n) \xrightarrow{} A$ and $f$ is a bijection
+\end{defn}
+An infinite set is one that is not finite, or one for which we cannot find a bijection between an interval of the first $n$ naturals for some $n \in \mathbb{N}$.\\
+
+We also introduce the notion of Dedekind infinite. A set that is Dedekind infinite is one where we can find an injective but not surjective map between the set and itself. For example:
+\begin{equation*}
+    S: \mathbb{N} \xrightarrow{} \mathbb{N}: 0 \notin \text{Ran}(S) \implies S(\mathbb{N}) \subseteq \mathbb{N}
+\end{equation*}
+So the naturals are a Dedekind infinite set under the successor operation. We can also come up with other injections such as $f(n) = n^2$. We say the following:
+\begin{lem}
+Given a set $A$: A is Dedekind infinite $\implies$ A is infinite
+\end{lem}
+The converse requires invoking axiom of choice as we need to assume the existence of a choice function that can generate a sequence of values to which we can apply an injective function.\\
+
+If we can find a bijection $f$ between an interval $[0, n)$ and a finite set $A$, then the value $n \in \mathbb{N}$ is called the cardinality of $A$, denoted by $|A|$. We see some inequalities related to cardinality:
+\begin{lem}
+For finite sets $A$ and $b$:
+\begin{enumerate}
+    \item $B \subseteq A \implies |B| \leqslant |A|$
+    \item $|A \cup B| \leqslant |A| + |B|$
+    \item $|A \times B| = |A| \cdot |B|$
+\end{enumerate}
+\end{lem}
+We prove Lemma 6.2.1:
+\begin{proof}
+We define $|A|$ as $n \in \mathbb{N}, \exists f: f: [0, n) \xrightarrow{} A \land \text{Im}(f) = A$. The proof is as follows:
+\begin{enumerate}
+    \item $B \subseteq A \iff \forall x \in B: x \in A$ (Subset Definition)
+    \item $\forall x \in B: (x \in A \implies x \in \text{Im}(f))$ (By definition of $f$)
+    \item $\implies \forall x \in B \land A, \exists m \in [0, n): f(m) = x$ (Definition of Preimage)
+    \item Thus $f^{-1}(B) = \{m \in [0, n): f(m) = x\}$
+    \item Since $\forall m \in f^{-1}(B): m \in [0, n) \implies f^{-1}(B) \subseteq [0, n)$ (Definition of Subset)
+    \item Therefore either $f^{-1}(B) = [0, n) = \text{Dom}(f)$ or $f^{-1}(B) \subset [0, n)$ so it does not contain all first $n$ naturals
+    \item Since $f$ is a bijection, then $f|_{f^{-1}(B)}: f^{-1}(B) \xrightarrow{} B$ is a bijection, so by line 6: $|B| \leqslant |A|$
+\end{enumerate}
+\end{proof}
+We prove Lemma 6.2.2:
+\begin{proof} The proof is as follows. Since $A, B$ are finite, axiom of choice is not required:
+\begin{enumerate}
+    \item $A \cup B \iff \forall x \in A \cup B: x \in A \lor x \in B$ (Definition of Union)
+    \item $f: [0, n) \xrightarrow{} A \land g: [0, m) \xrightarrow{} B$ such that $f, g$ are bijections. Then $|A| = n, |B| = m$.
+    \item We define a function $p: [0, m+n) \xrightarrow{} A \cup B$ such that $\text{Ran}(p|_{[0, n)}) = A \land \text{Ran}(p|_{[n, m+n)}) = B$
+    \item If $A \cap B \neq \varnothing$, then $\exists x: x \in A \land x \in B$
+    \item $\implies x \in \text{Im}(f) \land \text{Im}(g)$
+    \item $\implies \exists l \in [0, n) \land \exists k \in [m, m+n): p|_{[0, n)}(l) = p|_{[n, m+n)} = x$, which means that $p$ is not injective, so $|A \cup B| < m + n = |A| + |B|$
+    \item If $A \cap B = \varnothing$, then $p$ is a bijection, so $|A \cup B| = m + n = |A| + |B|$
+    \item Thus $|A \cup B| \leqslant |A| + |B|$
+\end{enumerate}
+\end{proof}
+We prove Lemma 6.2.3:
+\begin{proof} 
+The proof is as follows:
+\begin{enumerate}
+    \item We define the cartesian product of $A, B$ as $A \times B \coloneq \bigcup \{f: [0, 2) \xrightarrow{} A \cup B: (f(0) \in A \land f(1) \in B)\}$
+    \begin{enumerate}
+        \item Remember that a function is fundamentally its graph, so each function is bijective to the set of pairs with the first element being from $A$ and the seocnd being from $B$.
+        \item Let's restrict each $f$ to a single, unique ordered pair so that all the graphs are disjoint.
+    \end{enumerate}
+    \item Thus $|A \times B| = |\bigcup \{f: [0, 2) \xrightarrow{} A \cup B: (f(0) \in A \land f(1) \in B)\}| = \# \ \text{of} \ f$
+    \item Let $|A| = m \land |B| = n$
+    \item Fix an $a \in A: f(0) = a \land f(1) \in B \implies |\{f: [0, 2) \xrightarrow{} A \cup B: f(0) = a \land f(1) \in B\}| = n$ as there are $n$ elements in $B$
+    \item Since there are $m$ elements in $A$, we have $m$ sets  $\{f: [0, 2) \xrightarrow{} A \cup B: f(0) = a \land f(1) \in B\}$.
+    \item Thus in total we have $m$ sets of $n$ functions, so we have $m \cdot n$ functions in total, thus:
+    \item $|A \times B| = |A| \cdot |B|$
+\end{enumerate}
+\end{proof}
+We note the relation of Axiom of Choice and Cartesian Products/Powers. Take for example the cartesian power $\mathbb{R}^\mathbb{N}$ which is the set of real valued sequences. The question is the same as the problem proposed in Lemma 6.1. To construct the sequence, we encounter the following collection:
+\begin{enumerate}
+    \item $x_0 \in \mathbb{R}$
+    \item $x_1 \in \mathbb{R}\setminus \{x_0\}$
+    \item $x_2 \in \mathbb{R}\setminus \{x_0, x_1\}$
+    \item $x_3 \in \mathbb{R}\setminus \{x_0, x_1, x_2\}$
+    \item The sequences continues countably infinitely (for as many naturals there are)
+\end{enumerate}
+Here we see that we are required to select real numbers from an infinite family of infinite sets. We encounter the same problem for an infinite family of finite sets.\\
+
+We now consider the cartesian power $\mathbb{N}^\mathbb{N}$ which is the set of all natural-valued sequences. We see the following family:
+\begin{enumerate}
+    \item $x_0 \in \mathbb{N}$
+    \item $x_1 \in \mathbb{N}\setminus \{x_0\}$
+    \item The sequence continues for all of $\mathbb{N}$
+\end{enumerate}
+This case does not require axiom of choice however, due to the well ordering principle. We know that every set of naturals admits a minimum (an infinimum that exists in the set). So we know that there exists one such possible sequence which is the naturals itself. We can also take different collections of subsets of $\mathbb{N}$, combined with the well-ordering, allowing us to define different sequences and their rules.\\
+
+\textbf{Question to Think About}: What about $\mathbb{Q}^\mathbb{N}$, does such construction require Axiom of Choice?\\
+
+\medskip
+\begin{defn}
+A countable set $A$ is one that is either finite or $\exists f$ such that $f: \mathbb{N} \xrightarrow{} A$ is a bijection
+\end{defn}
+We now exmaine countable sets. We will show results such as $\mathbb{Q}$ being countable, or the set of algebraic reals being countable, which on surface seem counterintuitive.\\
+
+\medskip
+\begin{thm}
+If $A$ is countable, then $\forall B \subseteq A: B \ \text{infinite} \implies B \ \text{countable}$
+\end{thm}
+We first see that $A$ is infinite as well as it has an infinite subset (How can we prove this?)\\
+
+
+
 \end{document}
