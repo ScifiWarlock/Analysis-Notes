@@ -514,7 +514,7 @@ Now that we have defined exponentiation with respect to a real valued base, alon
 \begin{thm}
 The exponential function: $f: \mathbb{R} \xrightarrow{} \mathbb{R}^+ \setminus \{0\}$ is a bijection
 \end{thm}
-We define $f(x) = b^x$ for any $a \in \mathbb{R}^+$. The proof is the same if $b > 1$ or $b < 1$. Then:
+We define $f(x) = b^x$ for any $a \in \mathbb{R}^+ \setminus \{1\}$. The proof is the same if $b > 1$ or $b < 1$. Then:
 \begin{proof}
 $f$ is injective if $\forall x, y \in \mathbb{R}^+: b^x = b^y \implies x = y$. We can use Lemma 5.4 and multiplicative inverses:
 \begin{equation*}
@@ -775,6 +775,44 @@ Finally $\phi(0) = 0$. So all the negative rationals map to the odd naturals, wh
 
 Since the set of positive/negative rationals are bijective to the naturals, then the two rationals must be unique. Thus $\text{Ran}(\phi) \subseteq \mathbb{N}$, and because the rationals are infinite, the range is infinite. Thus by Thm 6.1, the range is countable.
 \end{proof}
+
+\medskip
+\begin{lem}
+The set of algebraic reals: $\{x \in \mathbb{R}: (\exists n \in \mathbb{N}, \exists a_0,...,a_n \in \mathbb{Z}: a_n \neq 0 \land a_nx^n +...+a_1x + a_0 = 0)\}$ is countable.
+\end{lem}
+We first prove that an $n$ degree polynomial has at most $n$ roots:
+\begin{proof}
+Our base case is when $n= 0$. This polynomial does not have roots trivially.\\
+
+We assume that a polynomial $p(x)$ that is degree $n$ with at most $n$ roots.\\
+
+Then if there is a $q(x) = (x- r)p(x)$ such that $\deg(q) = \deg(p) + 1 = n+1$, if $p(r) \neq 0$, then $\# \ \text{roots(q)} = \# \ \text{roots(p)} \leqslant \deg(p) < \deg(q)$.\\
+
+If $p(r) = 0$, then $\# \ \text{roots(q)} = \# \ \text{roots(p)} + 1 \leqslant \deg(p) + 1 = \deg(q)$. Therefore for any polynomial $\# \ \text{roots(q)} \leqslant \deg(q)$
+
+\vspace{6pt}
+
+We can define each $n$ degree polynomial by the $n+1$-tuple of its coefficients. Thus, we can define the set of polynomials degree $n$:
+\begin{equation*}
+    P_n \coloneq \mathbb{Z}^n
+\end{equation*}
+By Thm 6.1, $\mathbb{Z} \subset \mathbb{Q} \implies Z \ \text{countable}$. Thus the cartesian product $\mathbb{Z}^n$ is also countable as $n$ is finite. (If the iterating set were infinite, then we would face an infinite cartesian product).\\
+
+Since each polynomial $p \in P$ has at most $\deg(p)$ roots, then the set of roots for each $P_n$ is also countable. If we define the set of roots for $P_n$ to be $T_n$, then the set of all roots $\bigcup T_n$ is also countable.\\
+
+Thus $\mathbb{R}_A \coloneq \bigcup T_n$, so the set of all algebraic roots is countable.
+\end{proof}
+
+\medskip
+\begin{thm}
+There exists non-algebraic reals.
+\end{thm}
+Since $\mathbb{R}_A$ is countable and $\mathbb{R}$ is not countable, then $\mathbb{R}_A \lnsim \mathbb{R}$, so we can define the nonalgebraic reals as:
+\begin{equation*}
+    \mathbb{R}_N \coloneq \mathbb{R} \setminus \mathbb{R}_A
+\end{equation*}
+We know this set is nonempty by the strict inequality for numerosity.
+
 \pagebreak
 
 \section{Uncountable Sets}
@@ -802,5 +840,143 @@ However, this implies that the graph of $f$ is countable, meaning the domain of 
 \end{proof}
 
 \medskip
+\begin{defn}
+Equinumerosity of two sets $A, B$: $A \simeq B \implies \exists f: (f:A \xrightarrow{} B) \land f \ \text{bijection}$
+\end{defn}
+The Equinumerosity class of a set $[A]$ is the set of all sets equinumerous to $A$.
+
+\medskip
+\begin{thm}
+For all $A$, $A \notin [\mathcal{P}(A)]$
+\end{thm}
+\begin{proof}
+We want to prove that there exists no bijection $f: A \xrightarrow{} \mathcal{P}(A)$. Since $\forall x \in A, \{x\} \subset A$, then $\forall x \in A: x \in \mathcal{P}(A)$ by definition of powerset. If two such singletons are equal, then by Axiom of Exensionality, their elements must be equal. Thus $f$ is an injection.\\
+
+We prove that $f$ is not a surjection. We know that $A \subseteq A$, so $A \in \mathcal{P}(A)$, but $A \notin A$, so $f$ is not a surjection.\\
+
+If $A \in A$, then we would have a loop of infinite containment, which is not allowed by Axiom of Regularity.
+\end{proof}
+
+\medskip
+\begin{defn}
+We define nonequinumerosity: $A \lesssim B \implies \exists f: (f: A \xrightarrow{} B) \land f \ \text{injection}$
+\end{defn}
+Cardinality is limited to countable or finite sets, so this inequality allows us to compare numerosity or size for uncountable sets as well.\\
+
+We observe that $A \subseteq B \implies A \lesssim B$. However $A \lesssim B \land B \lesssim A$ does not imply $A = B$. For example:
+\begin{equation*}
+    \mathbb{Q} \lesssim \mathbb{N} \land \mathbb{N} \lesssim \mathbb{Q} 
+\end{equation*}
+Yet, $\mathbb{Q} \neq \mathbb{N}$. We however do formulate the Cantor-Bernstein theorem as follows:
+\begin{thm}
+$A \lesssim B \land B \lesssim A \implies A \simeq B$
+\end{thm}
+\begin{proof}
+Proof is left as an excercise to the reader. (I will complete it later, I am the reader)
+\end{proof}
+However, a powerful result of this theorem is that we only need to show two injections exist between both sets to show they are equinumerous.\\
+
+\begin{defn}
+The equinumerosity class $[\mathbb{R}]$ is called the continuum.
+\end{defn}
+We can show that $\mathcal{P}(\mathbb{N}) \in [\mathbb{R}]$.
+\begin{proof}
+$\mathcal{P}(\mathbb{N}) \simeq \{0, 1\}^\mathbb{N}$ via the following bijection:
+\begin{equation*}
+    \forall A \in \mathcal{P}(\mathbb{N}): f_n(A) \coloneq \begin{cases}
+        0: \ \ n \notin A\\
+        1: \ \ n \in A
+    \end{cases}
+\end{equation*}
+If two sequences are equal, then we know that their preimages must be the same, so $f$ is injective. We also see $f$ is surjective, since every sequence is the size of $\mathbb{N}$, it obtains an equivalent expression as a subset of $\mathbb{N}$.\\
+
+Before we derived an injection from $\{0, 1\}^\mathbb{N} \xrightarrow{} [0, 1]$, thus we can derive an injection from $\mathcal{P}(\mathbb{N}) \xrightarrow{} [0, 1]$. Since $[0, 1] \subset \mathbb{R}$, the injection follows, so $\mathcal{P}(\mathbb{N}) \lesssim \mathbb{R}$.\\
+
+Now $\mathbb{R}$ is the set of Dedekind cuts to $\mathbb{R} \lesssim \mathcal{P}(\mathbb{Q})$.\\
+
+Since $\mathbb{Q} \simeq \mathbb{N}$ then $\mathcal{P}(\mathbb{Q}) = \mathcal{P}(\mathbb{N})$ (why? Technically by $2^n$ rule but not proven). Thus $\mathbb{R} \lesssim \mathcal{P}(\mathbb{N})$, so:
+\begin{equation*}
+    \mathcal{P}(\mathbb{N}) \simeq \{0, 1\}^\mathbb{N} \simeq [0, 1] \simeq \mathbb{R}
+\end{equation*}
+\end{proof}
+
+\medskip
+\begin{lem}
+$\mathbb{R} \times \mathbb{R} \simeq \mathbb{R}$ and $\forall n \in \mathbb{N}: \mathbb{R}^n \simeq \mathbb{R}$
+\end{lem}
+We first prove that $\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \mathcal{P}(\mathbb{N})$. We see trivially that $\mathcal{P}(\mathbb{N}) \lesssim \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N})$.
+\begin{equation*}
+    \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \{0, 1\}^\mathbb{N} \times \{0, 1\}^\mathbb{N}
+\end{equation*}
+We can construct an injection $f: \{0, 1\}^\mathbb{N} \times \{0. 1\}^\mathbb{N} \xrightarrow{} \{0, 1\}^\mathbb{N}$. If we take a pair of sequences, simply concatenating them provides a new, unique sequence. Therefore:
+\begin{equation*}
+    \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \{0, 1\}^\mathbb{N} \times \{0, 1\}^\mathbb{N} \lesssim \{0, 1\}^\mathbb{N} \simeq \mathcal{P}(\mathbb{N})
+\end{equation*}
+Thus $\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \mathcal{P}(\mathbb{N})$.
+\begin{proof}
+We see a trivial injection such that $A \lesssim A \times A$. We now prove $A \times A \lesssim A$.\\
+
+If $A$ is countable then by lemma 6.3, we know this holds true. However, if $A$ is uncountable
+\end{proof}
+
+\vspace{6pt}
+
+\begin{proof}
+We note that $\mathbb{R} \lesssim \mathbb{R} \times \mathbb{R}$ trivially, as the real numbers are embedded in a 2D Euclidean space.\\
+\begin{equation*}
+    \mathbb{R} \times \mathbb{R} \lesssim \mathcal{P}(\mathbb{Q}) \times \mathcal{P}(\mathbb{Q}) \simeq \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \mathcal{P}(\mathbb{N}) \simeq \mathbb{R}
+\end{equation*}
+Thus $\mathbb{R} \times \mathbb{R} \lesssim \mathbb{R}$, so $\mathbb{R} \times \mathbb{R} \simeq \mathbb{R}$.
+\end{proof}
+
+\vspace{6pt}
+
+\begin{proof}
+We now prove that $\forall n \geqslant 1: \mathbb{R}^n \simeq \mathbb{R}$. The inequality $\mathbb{R} \lesssim \mathbb{R}^n$ is trivial. We prove the other direction:
+\begin{equation*}
+    \mathbb{R}^n \lesssim \mathcal{P}(\mathbb{Q})^n \simeq \mathcal{P}(\mathbb{N})^n
+\end{equation*}
+Since $n \in \mathbb{N}$, if $n$ is even, then we create $n/2$ number of pairs of $\mathcal{P}(\mathbb{N})$. Using the property initially proved, we get:
+\begin{equation*}
+    \mathcal{P}(\mathbb{N})^n \simeq \mathcal{P}(\mathbb{N})^{n/2} \simeq \mathcal{P}(\mathbb{N})^{n/4} \simeq...
+\end{equation*}
+We repeat this process till we get $\mathcal{P}(\mathbb{N})$. If $n$ is odd, then we apply this process to $n-1$. We then get:
+\begin{equation*}
+    \mathcal{P}(\mathbb{N})^n \simeq \mathcal{P}(\mathbb{N})^{n-1} \times \mathcal{P}(\mathbb{N}) \simeq \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \mathcal{P}(\mathbb{N})
+\end{equation*}
+Therefore we complete our previouos inequality:
+\begin{equation*}
+    \mathbb{R}^n \lesssim \mathcal{P}(\mathbb{Q})^n \simeq \mathcal{P}(\mathbb{N})^n \simeq \mathcal{P}(\mathbb{N}) \simeq \mathbb{R}
+\end{equation*}
+Now tha we have both inequalities, we have proven that $\mathbb{R}^n \simeq \mathbb{R}$.
+\end{proof}
+
+\vspace{6pt}
+
+\begin{lem}
+$\mathbb{R}^\mathbb{N} \simeq \mathbb{R}$
+\end{lem}
+We know that $\mathbb{R} \simeq \{0, 1\}^\mathbb{N}$, so by Lemma 6.3 and 7.2:
+\begin{equation*}
+    \mathbb{R}^\mathbb{N} \simeq \{0, 1\}^{\mathbb{N} \times \mathbb{N}} \simeq \{0, 1\}^{\mathbb{N}} \simeq \mathcal{P}(\mathbb{N}) \simeq \mathbb{R}
+\end{equation*}
+
+\vspace{6pt}
+
+\begin{lem}
+$\mathbb{R} \lnsim \mathbb{R}^\mathbb{R}$
+\end{lem}
+We first prove that $\mathbb{N} \times \mathbb{R} \simeq \mathbb{R}$. The inequality $\mathbb{R} \lesssim \mathbb{N} \times \mathbb{R}$ is trivial. We prove the other direction by Lemma 7.2:
+\begin{equation*}
+    \mathbb{N} \times \mathbb{R} \simeq \mathbb{N} \times \mathcal{P}(\mathbb{N}) \lesssim \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \mathcal{P}(\mathbb{N}) \simeq \mathbb{R}
+\end{equation*}
+\begin{proof}
+We can now track the following inequality:
+\begin{equation*}
+    \mathbb{R} \lnsim \mathcal{P}(\mathbb{R}) \simeq \{0, 1\}^\mathbb{R} \simeq \{0, 1\}^{\mathbb{N} \times \mathbb{R}} \simeq \mathcal{P}(\mathbb{N})^\mathbb{R} \simeq \mathbb{R}^\mathbb{R}
+\end{equation*}
+\end{proof}
+
+\vspace{6pt}
 
 \end{document}
