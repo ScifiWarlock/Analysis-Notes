@@ -834,9 +834,9 @@ We once again utilize Cantor's Diagonal argument for this lemma.
 \begin{proof}
 This time we deal with graphs of functions and not sequences. Each function $f: \mathbb{R} \xrightarrow{} \{0, 1\}$. We also have $\phi: \mathbb{N} \xrightarrow{} \{f\}$.\\
 
-We define $h: \mathbb{R} \xrightarrow{} \{0, 1\}$ as the graph where the $nth$ tuple of the $nth$ function is $(n, 1- f_n(n))$.\\
+We define $h: \mathbb{R} \xrightarrow{} \{0, 1\}$ as the function where the value of $n$ of $nth$ function is $(n, 1- f_n(n))$.\\
 
-However, this implies that the graph of $f$ is countable, meaning the domain of $f$ is also countable, which contradicts that $\text{Dom}(f) = \mathbb{R}$. As a result, in order to construct a new function $h$, we require $\mathbb{R}$ functions $f$, xhowing that $\{f\} = \{0, 1\}^\mathbb{R}$ is uncountable.
+We see that $h$ does not fit in any of the functions, so the set of such functions are uncountable.
 \end{proof}
 
 \medskip
@@ -913,11 +913,6 @@ We can construct an injection $f: \{0, 1\}^\mathbb{N} \times \{0. 1\}^\mathbb{N}
     \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \{0, 1\}^\mathbb{N} \times \{0, 1\}^\mathbb{N} \lesssim \{0, 1\}^\mathbb{N} \simeq \mathcal{P}(\mathbb{N})
 \end{equation*}
 Thus $\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \mathcal{P}(\mathbb{N})$.
-\begin{proof}
-We see a trivial injection such that $A \lesssim A \times A$. We now prove $A \times A \lesssim A$.\\
-
-If $A$ is countable then by lemma 6.3, we know this holds true. However, if $A$ is uncountable
-\end{proof}
 
 \vspace{6pt}
 
@@ -976,7 +971,189 @@ We can now track the following inequality:
     \mathbb{R} \lnsim \mathcal{P}(\mathbb{R}) \simeq \{0, 1\}^\mathbb{R} \simeq \{0, 1\}^{\mathbb{N} \times \mathbb{R}} \simeq \mathcal{P}(\mathbb{N})^\mathbb{R} \simeq \mathbb{R}^\mathbb{R}
 \end{equation*}
 \end{proof}
+\pagebreak
 
-\vspace{6pt}
+\section{Metric Spaces}
+We earlier defined a sequence as the graph of a function $f: \mathbb{N} \xrightarrow{} A$. While this is the underlying machinery, we consider a sequence as a set of elements indexed by the naturals, denoted as $\{x_n\}_{n \in \mathbb{N}}$.\\
 
+First we deal with "real-valued sequences", which means that all $x_n \in \mathbb{R}$. We define two important notions, in the context of the reals:
+\begin{defn}
+A Cauchy sequence: $\forall k \in \mathbb{N}, \exists n_0 \in \mathbb{N}, \forall m, n \geqslant n_0: |x_m - x_n| < \frac{1}{k+1}$
+\end{defn}
+The reason we set the bound as $\frac{1}{k+1}$ is that the bound will always exist in the reals and as we incresae $k$, the bound will get smaller, which is the behavior we want to model. We could set the bound to $\frac{1}{r+1}$, where $r$ is a real, but the natural numbers allos us to create a sequence of bounds unlike the reals which are uncountable.\\
+
+\medskip
+\begin{defn}
+A convergent sequence: $\exists L \in \mathbb{R}, \forall k \in \mathbb{N}, \exists n_0 \in \mathbb{N}, \forall n \geqslant n_0: |x_n - L| < \frac{1}{k+1}$
+\end{defn}
+This is different from a Cauchy sequence as we are now fixing a set "limit point". As we decrease the bound, we can always find some element in the sequence arbitrarily close. So for a very large $k$ we see that $x_n$ tends to $L$.\\
+
+\textbf{Example}: We show the following is Cauchy and convergent:
+\begin{equation*}
+    a_0 = 1 \land a_{n+1} = 3 - \frac{1}{a_n}
+\end{equation*}
+We show that $\forall n \in \mathbb{N}: 1 \leqslant a_{n+1} \leqslant 3$ and $a_n < a_{n+1}$:
+\begin{equation*}
+    1 \leqslant a_n \leqslant 3 \implies -1 \leqslant -\frac{1}{a_n} \leqslant -\frac{1}{3}
+\end{equation*}
+\begin{equation*}
+    a_{n+1} \leqslant 3 - \frac{1}{a_n} \leqslant 3 - \frac{1}{3} < 3
+\end{equation*}
+Also $a_n \geqslant 1 \implies a_{n+1} > a_n \geqslant 1$, so $1 \leqslant a_{n+1} \leqslant 3 \land a_n < a_{n+1}$. Since each consecutive term is greater, we call this monotone (monotonically increasing).\\
+
+We now prove the sequence is Cauchy:
+\begin{proof}
+We need to show we can find some $n_0$ such that $\forall k \in \mathbb{N}$ the proposition holds true. We apply the triangle inequality:
+\begin{equation*}
+    |a_{n+1} - a_n| \leqslant |a_{n+1}| + |a_n|
+\end{equation*}
+\end{proof}
+
+\subsection{Metrics}
+We now generalize the notion of distance to the concept of a "metric":
+\begin{defn}
+A metric space is a set $X$ equipped with a metric $\varrho$ such that for $(X, \varrho)$:
+\begin{enumerate}
+    \item $\forall x, y \in X: \varrho(x, y) \geqslant 0 \land \varrho(x, x) = 0$ (Positivity)
+    \item $\forall x, y \in X: \varrho(x, y) = \varrho(y, x)$ (Symmetry)
+    \item $\forall x, y, z \in X: \varrho(x, z) \leqslant \varrho(x, y) + \varrho(y, z)$ (Triangle Inequality)
+\end{enumerate}
+\end{defn}
+We will now look at various metrics. The typical Euclidean metric (distance between two points in $\mathbb{R}^n$) is defined as:
+\begin{equation*}
+    (\sum_{i=1}^{n}|x_i - y_i|^2)^{\frac{1}{2}}
+\end{equation*}
+We can in fact generalize this notion to create $p$-metrics for $\mathcal{l}^p$ spaces (which are spaces of $X$ valued sequences with a $p$-norm. Think, vector spaces with a fixed basis such that the elements can be represented as finite sequences, or infinite with Axiom of Choice):
+\begin{equation*}
+    \text{p-metric} \coloneq (\sum_{i=1}^{n}|x_i - y_i|^p)^{\frac{1}{p}}
+\end{equation*}
+The $\infty$-metric is then defined as the following and is referred to as the "box metric":
+\begin{equation*}
+    \max_{i = 1, 2, ..., n}|x_i - y_i|
+\end{equation*}
+We address the "shapes" of these metrics. This construct stems from the idea of a norm, attached to a vector space (which creates a normed vector space):
+\begin{defn}
+A norm $||\cdot||$ is a metric that gives the magnitude of a vector from the "origin" or 0 element. Let $V$ be a vector space:
+\begin{enumerate}
+    \item $\forall v \in V: ||v|| \geqslant 0$ (Positivity)
+    \item $\forall v \in V \land c \in F: ||cv|| = |c|||v||$ (Scalar Multiplication)
+    \item $\forall v, w \in V: ||v + w|| \leqslant ||v|| + ||w||$ (Triangle Inequality)
+\end{enumerate}
+\end{defn}
+The norm pretty closely mirrors the properties of a metric space (that is because it is, or it induces one). We can derive the remaining properties of the metric space (which is symmetry) by the following:
+\begin{equation*}
+    \forall v, w \in V: ||v - w|| = ||-(w-v)|| = |-1||w-v|| = ||w-v||
+\end{equation*}
+This completes all the properties needed for the vector space to be a metric space. We can now draw out the $p$-norm unit circles (which are the set of points/vectors a distance 1 away from the origin):
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth, height = 6cm]{pnorms.png}
+    \caption{Unit circles of $p$-norms}
+    \label{fig:myimage}
+\end{figure}
+We will return to verifying the $p$-metrics to be valid metrics via the norms. The $p$-norm now becomes the distance between the origin and the vector:
+\begin{equation*}
+    \forall v \in V: ||v||_p = (\sum_{k=1}^{n}(|v_k|^p))^{\frac{1}{p}}
+\end{equation*}
+
+With the introduction of metrics, we can now generalize the notion of Cauchy and convergent sequences for an $X$ valued sequence $\{x_n\}_{n\in \mathbb{N}}$ with a metric $(X, \varrho)$:
+\begin{defn}
+A Cauchy sequence: $\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall m, n \geqslant n_0: \varrho(x_m, x_n) < \epsilon$\\
+A convergent sequence: $\exists L \in X, \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: \varrho(x_n, L) < \epsilon$
+\end{defn}
+The definition is largely similar, with the difference being an arbitrary upper bound $\epsilon$ as it is not specified what the set $X$ is and what the metric $\varrho$ is.\\
+
+\begin{lem}
+A convergent sequence is Cauchy.
+\end{lem}
+\begin{proof}
+Given $(X, \varrho)$ and a sequence $\{x_n\}_{n\in \mathbb{N}}$, we let the limit point be $L$. Then:
+\begin{equation*}
+    \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: \varrho(x_n, L) < \epsilon/2
+\end{equation*}
+We choose an $m \geqslant n_0$ such that $\varrho(x_m, L) < \epsilon/2$. Then by the triangle inequality:
+\begin{equation*}
+    \varrho(x_n, x_m) \leqslant \varrho(x_n, L) + \varrho(L, x_m) = \varrho(x_n, L) + \varrho(x_m, L) = \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+\end{equation*}
+Thus $\forall \epsilon > 0$, we have shown there exists an $n_0$, which is the same as our initial one in the limit defintion, such that $\forall m, n \geqslant n_0: \varrho(x_m, x_n) < \epsilon$.
+\end{proof}
+
+\medskip
+\begin{lem}
+For $(X, \varrho)$, an $X$ valued, convergent sequence $\{x_n\}_{n_k \in \mathbb{N}}$ has at most one limit $L$. 
+\end{lem}
+\begin{proof}
+We assume there to be two limits $L$ and $L'$ such that $x_n \xrightarrow{} L \land x_n \xrightarrow{} L'$. Since $L \neq L'$, then we can find an $\epsilon$ such that $\varrho(L, L') > \epsilon$. Then we define an $n_0$, such that:
+\begin{equation}
+    \forall n \geqslant n_0: \varrho(x_n, L) < \frac{\epsilon}{2} \land \varrho(x_n, L') < \frac{\epsilon}{2}
+\end{equation}
+By positivity we know that $\varrho(x, x) = 0$, so by the triangle inequality:
+\begin{equation*}
+    \varrho(L, L') \leqslant \varrho(x_n, L) + \varrho(x_n, L')  = \epsilon < \varrho(L, L')
+\end{equation*}
+We get that $\varrho(L, L') < \varrho(L, L')$ which is a contradiction by metric properties, so $L = L'$.
+\end{proof}
+
+\medskip
+\begin{defn}
+A subsequence is defined by $\{x_{n_k}\}_{n_k \in \mathbb{N}}$ where $\{n_k\}_{k \in \mathbb{N}}$ is a strictly increasing/monotonically increasing sequence
+\end{defn}
+Typically we can define the $n_k$ sequence by some rule, such as even naturals or odd naturals.
+
+\medskip
+\begin{lem}
+For a Cauchy sequence $\{x_n\}_{n \in \mathbb{N}}$, if there is a convergent subsequence such that $x_{n_k} \xrightarrow{} z \implies x_n \xrightarrow{} z$ where $z$ is a limit point
+\end{lem}
+\begin{proof}
+The sequence being Cauchy means $\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall m, n \geqslant n_0: \varrho(x_m, x_n) < \epsilon/2$.\\
+
+For the convergent subsequence, we get that $\exists z \in X, \forall \epsilon > 0, \exists n_1 \geqslant 0, \forall n \geqslant n_1: \varrho(x_n, z) < \epsilon/2$.\\
+
+Then we choose an $m \geqslant n_1 \land m \geqslant n_0 \land n \geqslant n_0 \land n \geqslant n_1$. By triangle inequality:
+\begin{equation*}
+    \varrho(x_m, z) \leqslant \varrho(x_m, x_n) + \varrho(x_n, z) = \epsilon
+\end{equation*}
+Thus the sequence for any $m \geqslant n_1 \land m \geqslant n_0$ converges to $z$. We can simply set the $n_2 = \max\{n_0, n_1\}$ such that:
+\begin{equation*}
+    \exists z \in X, \forall \epsilon > 0, \exists n_2 \geqslant 0, \forall n \geqslant n_2: \varrho(x_n, z) < \epsilon
+\end{equation*}
+\end{proof}
+
+\medskip
+\textbf{Intuition Note:} We use $\epsilon > 0$, as if $\epsilon = 0$, then that would mean the two values being compared are equal. However if you take the $nth$ term for a very vary large $n$ in a sequence, not necessarily you will reach the limit, but you may be ever so close, which is why there will be some small difference $\epsilon$. However, if we say it equals $\epsilon$ and then choose the next term of the sequence, then the difference will not necessarily be equal to. However, if it is converging, then it will likely be less, so we say $< \epsilon$. If we choose the $\epsilon$ then we can guarantee a closer term to the limit always.\\
+
+What if the sequence does actually reach the limit? We view the discrete metric for a point $y$:
+\begin{equation*}
+    \varrho(x, y) \coloneq \begin{cases}
+        0: \ x = y\\
+        1: \ x \neq y
+    \end{cases}
+\end{equation*}
+\begin{cor}
+If a sequence in $(X, \varrho)$ is Cauchy, then it is convergent and eventually constant.
+\end{cor}
+\begin{proof}
+If it is Cauchy, then $\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall m, n \geqslant n_0: \varrho(x_m, x_n) < \epsilon$. For any epsilon (eg $\epsilon = 1$), the metric being less than epsilon implies that $x_m = x_n$. So we can define a limit $L$ such that $x_m = x_n = L$.\\
+
+We can see that the sequence does meet and stagnates at the limit under this metric. 
+\end{proof}
+
+\medskip
+\begin{lem}
+Urysohn's Subsequence Principle says the following are equivalent for a sequence $\{x_n\}_{n \in \mathbb{N}}$ and a limit point $z$:
+\begin{enumerate}
+    \item $x_n \xrightarrow{} z$
+    \item Every subsequence $\{x_{n_k}\}_{n_k \in \mathbb{N}}$ contains a convergent subsubsequence such that $x_{{n_k}_j} \xrightarrow{} z$
+\end{enumerate}
+\end{lem}
+\begin{proof} We prove equivalence of the statements by showing an if and only if relation:\\
+
+$\implies$: By lemma 8.1, we get that the sequence is Cauchy. We apply Lemma 8.3 twice to see that there exists such a subsubsequence converging to $z$.\\
+
+$\impliedby$: We proceed by contrapositive. Assume $\{x_n\}_{n \in \mathbb{N}}$ does not converge at all, then $\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: \varrho(x_n, z) \geqslant \epsilon$. If we then set:
+\begin{equation*}
+    n_0 = 1 \land n_k \coloneq \inf\{m > n_k \land \varrho(x_m, z) > \epsilon\}
+\end{equation*}
+Essentially each $n_k$ of the subsequence is the smallest value of $m$ so that the sequence does not converge, then the subsequence does not converge. So by the contrapositive of lemma 8.3, the subsubsequence does not converge.
+\end{proof}
 \end{document}
