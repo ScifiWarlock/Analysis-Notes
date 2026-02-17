@@ -867,7 +867,7 @@ We observe that $A \subseteq B \implies A \lesssim B$. However $A \lesssim B \la
 \begin{equation*}
     \mathbb{Q} \lesssim \mathbb{N} \land \mathbb{N} \lesssim \mathbb{Q} 
 \end{equation*}
-Yet, $\mathbb{Q} \neq \mathbb{N}$. We however do formulate the Cantor-Bernstein theorem as follows:
+Yet, $\mathbb{Q} \neq \mathbb{N}$. While we cannot make a conclusion about equality, the Cantor=Bernstein Theorem allows us to say the following:
 \begin{thm}
 $A \lesssim B \land B \lesssim A \implies A \simeq B$
 \end{thm}
@@ -876,6 +876,73 @@ Proof is left as an excercise to the reader. (I will complete it later, I am the
 \end{proof}
 However, a powerful result of this theorem is that we only need to show two injections exist between both sets to show they are equinumerous.\\
 
+We build an algebraic structure out of numerosity:
+\begin{thm}
+Numerosity $\lesssim$ is a partial ordering for a set $U$ of possible sets.
+\end{thm}
+\begin{enumerate}
+    \item Reflexivity: $A \lesssim A$ is trivial as $A = $ so $A \simeq A$
+    \item Anti-symmetry: $A \lesssim B \land B \lesssim A \implies A \simeq B$ (given by Cantor Bernstein)
+    \item Transitivity: $A \lesssim B \land B \lesssim C \implies A \lesssim C$
+\end{enumerate}
+We prove transitivity, for which we use the following lemma:
+\begin{lem}
+Given $f: A \xrightarrow{} B \land g: B \xrightarrow{} C$. If $f, g$ are injections, then $g \circ f$ is an injection.
+\end{lem}
+\begin{proof}
+By the definition of injection, we say that $\forall a, b \in B: g(a) = a(b) \implies a = b$. By preimage we say that:
+\begin{equation*}
+    \exists x, y \in A: f(x) = a \land f(y) = b
+\end{equation*}
+So our initial proposition becomes $\forall x, y \in A: g(f(x)) = g(f(y)) \implies f(x) = f(y)$. By injectivity of $f$, we get that $a = b$, so $g \circ f$ is an injection.
+\end{proof}
+
+Now the fact that $g \circ f$ is an injection tells us by the definition of numerosity (nonequinumerosity), that $A \lesssim C$, proving transitivity.\\
+
+\medskip
+We now prove the following lemma about the Cartesian product (which will contribute as the operation to our algebraic structure):
+\begin{lem}
+$\forall A, B, C \in U: A \lesssim B \implies A \times C \lesssim B \times C$
+\end{lem}
+We are given $A \lesssim B$ which means we have an injection $f: A \xrightarrow{} B$. We can define the following function:
+\begin{equation*}
+    \forall (a, c) \in A \times C: g(a, c) = (f(a), c)
+\end{equation*}
+We see that this is an injection. Take two ordered pairs $(a, c), (b, d)$, then:
+\begin{equation*}
+    g(a, c) = g(b, d) \implies (f(a), c) = (f(b), d) \implies f(a) = f(b) \land c = d
+\end{equation*}
+We derive the equivalence of the components by our construction of ordered pairs with Kuratowski pairs. It also stems from the fact that the two components are from different sets. By the injectivity of $f$:
+\begin{equation*}
+    f(a) = f(b) \land c = d \implies a = b \land c = d \implies (a, b) = (c, d)
+\end{equation*}
+Thus $g$ is injective so we see that $A \times C \lesssim B \times C$. The same proof can be carried out to show that $C \times A \lesssim C \times B$. We will see that the inequality does not behave nicely with $\lnsim$.\\
+
+This likely seems similar to the ordered preserving operations on ordered fields, hinting at an underlying algebraic structure.\\
+
+\begin{defn}
+A partially ordered semigroup is a group equipped with associativity, identity and order ($\leqslant$), but not with inverses under the group operation.\\
+Additionally $\forall a, b, c \in G: a \leqslant b \implies a + g \leqslant b + g \iff g + a \leqslant g + b$
+\end{defn}
+We see that the cross product $\times$ (our group operation) is associative (we can find a bijection between $A \times (B \times C)$ and $(A \times B) \times C$).\\
+
+By Lemma 7.3, we see that the order is preserved under the operation. We do not have inverse for the cartesian product. For the identity, lets call it $I$:
+\begin{equation*}
+    A \times I \simeq A
+\end{equation*}
+This happens when $I$ has cardinality of 1, which means we can have multiple identities. However, the identity of a group must be unique! So we are not dealing with sets but rather equivalence classes of equinumerous sets!\\
+
+The identity $I$ is the class of all sets cardinality 1. Then we get the following property: $[A] \times [B] \simeq [A \times B]$. So when we say that $A \lesssim B$, what we really mean is $[A] \lesssim [B]$, as:
+\begin{equation*}
+    A' \in [A] \land B' \in [B] \land \exists f: A \xrightarrow{} B \land f \ \text{injection}
+\end{equation*}
+Then $A' \in [A] \land B' \in [B]$ by Definition 7.1 means we can find bijections $g, h$ between $A', A$ and $B', B$ respectively. Then, we get the following injection:
+\begin{equation*}
+    g \circ f \circ h: A' \xrightarrow{} B' \implies A' \lesssim B'
+\end{equation*}
+Thus the choice of representative is arbitrary, but when we say a numerosity inequality is true for certain sets, it is also true for the sets equinumerous to them.
+
+\medskip
 \begin{defn}
 The equinumerosity class $[\mathbb{R}]$ is called the continuum.
 \end{defn}
@@ -1156,4 +1223,7 @@ $\impliedby$: We proceed by contrapositive. Assume $\{x_n\}_{n \in \mathbb{N}}$ 
 \end{equation*}
 Essentially each $n_k$ of the subsequence is the smallest value of $m$ so that the sequence does not converge, then the subsequence does not converge. So by the contrapositive of lemma 8.3, the subsubsequence does not converge.
 \end{proof}
+\pagebreak
+
+\section{Topology}
 \end{document}
