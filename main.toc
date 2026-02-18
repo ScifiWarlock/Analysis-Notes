@@ -10,3 +10,4 @@
 \contentsline {section}{\numberline {8}Metric Spaces}{25}{section.8}%
 \contentsline {subsection}{\numberline {8.1}Metrics}{25}{subsection.8.1}%
 \contentsline {section}{\numberline {9}Topology}{29}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Open and Closed sets}{29}{subsection.9.1}%

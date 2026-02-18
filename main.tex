@@ -1079,7 +1079,7 @@ We need to show we can find some $n_0$ such that $\forall k \in \mathbb{N}$ the 
 \subsection{Metrics}
 We now generalize the notion of distance to the concept of a "metric":
 \begin{defn}
-A metric space is a set $X$ equipped with a metric $\varrho$ such that for $(X, \varrho)$:
+A metric space $(X, \varrho)$ is a set $X$ equipped with a metric $\varrho: X \times X \xrightarrow{} \mathbb{R}^+$:
 \begin{enumerate}
     \item $\forall x, y \in X: \varrho(x, y) \geqslant 0 \land \varrho(x, x) = 0$ (Positivity)
     \item $\forall x, y \in X: \varrho(x, y) = \varrho(y, x)$ (Symmetry)
@@ -1226,4 +1226,70 @@ Essentially each $n_k$ of the subsequence is the smallest value of $m$ so that t
 \pagebreak
 
 \section{Topology}
+\subsection{Open and Closed sets}
+We now deal with the notion of a set being "open" and "closed". This is the same as saying does the set contain its boundary points or not (however we have not defined boundary points).\\
+
+\begin{defn}
+An open ball around point $x$, radius $r$ in $(X, \varrho)$ is $B(x, r) \coloneq \{y \in X: \varrho(x, y) < r\}$
+\end{defn}
+We talked about convergent and Cauchy sequences using the idea of a metric (distance between points) given to a set $X$.\\
+
+With the Euclidean metric $p_2$, the ball in 1D is an open interval. In 2D it is a circle, and in 3D a sphere, and so on so forth. We saw that in 2D for the $||\cdot||_\infty$, we get the shape of a square.\\
+
+This is equivalent to saying the open ball is the cartesian product of two open intervals, so in $(\mathbb{R}^n, p_\infty)$:
+\begin{equation*}
+    B_\infty(x, r) = \bigtimes_{i = 1}^{n}(x_i - r, x_i + r)
+\end{equation*}
+We can use this to see if a set is open:
+\begin{defn}
+An open set is one for which we can find an empty ball around each point that is a subset of the set
+\end{defn}
+We then define a closed set as one whose complement is open.\\
+
+\begin{lem}
+The singleton $\{x\}$ is a closed set.
+\end{lem}
+Assume $x \in (X, \varrho)$, then for any $r \in \mathbb{R}$, we can find some point $y \in X$ such that $\varrho(x, y) = r$. If we then set the open ball around $x$ to be $B(y, r)$, then it will not contain $x$ by definition of open ball.\\
+
+We can construct such open balls for all $y \in X \setminus \{x\}$ so by definition 9.2, $X \setminus \{x\}$ is open, thus $\{x\}$ is closed.\\
+
+\begin{lem}
+Every "open" ball is open
+\end{lem}
+We take any point in the open ball $y \in B(x, r)$. By definition $\varrho(x, y) < r$, we can then define an open ball around $y$:
+\begin{equation*}
+    B(y, r') \coloneq \{z \in X: \varrho(y, z) < r'\}
+\end{equation*}
+Then $\varrho(y, z) < r' \land r' + \varrho(x, y) < r$. If we set $\varrho(y, z) < r - \varrho(x, y)$. By triangle inequality:
+\begin{equation*}
+    \varrho(x, z) \leqslant \varrho(x, y) + \varrho(y, z) < \varrho(x, y) + r - \varrho(x, y) = r
+\end{equation*}
+Since $\varrho(x, z) < r$, then by definition $z \in B(x, r)$, so we can always find some open ball around each point in the open ball such that it belongs to $B(x, r)$.\\
+
+Remember that our lemma is equivalent to the statement that we can find an open ball around each point in parent ball such that it is a subset of the parent ball. So we need to find a radius of the smaller ball around each point that allows us to say that.
+\begin{lem}
+If $\varrho$ is a discrete metric on $X$, then every subset of $X$ is open and closed.
+\end{lem}
+If we consider the open ball $B(x, r)$ with $0 < r < 1$, then the only point contained within this ball is the singleton $\{x\}$. By lemma 9.1, this is closed, however, since its an open ball it is open as well.\\
+
+For any subset $A \subseteq X$, if we take the discrete points of $A$ as singletons, then each point in $A$ has an open ball that is a subset of $A$. Thus by Definition 9.2, A is open.\\
+
+We can depend on the same construction for $X \setminus A$ which becomes open, and since $A^c = X \setminus A$, then $A$ is a closed set by Definition 9.2.\\
+
+\begin{lem}
+A closed ball $\bar{B}(x, r) \coloneq \{y \in X: \varrho(y, x) \leqslant r\}$ is closed
+\end{lem}
+The complement of this set is $A \coloneq \{y \in X: \varrho(y, x) > r\}$. We aim to show that this set is open:\\
+\begin{equation*}
+    \forall y \in A: B(y, r') \coloneq \{z \in X: \varrho(y, z) < r'\}
+\end{equation*}
+We define open balls in $A = \bar{B}^c$ and just like Lemma 9.2 find a suitable radius. By the triangle inequality:
+\begin{equation*}
+    \varrho(x, y) \leqslant \varrho(x, z) + \varrho(y, z) \implies \varrho(x, y) - \varrho(y, z) \leqslant \varrho(x, z)
+\end{equation*}
+Using the inequality $\varrho(y, z) < r'$, we see that:
+\begin{equation*}
+    r - r' < \varrho(x, y) - r' < \varrho(x, z)
+\end{equation*}
+So if we set $0 < r' < \varrho(x, y) - r$, we see that $\varrho(x, z) > r$ which means $z \in A \lor B(y, r') \subseteq A$. We also know that $\varrho(x, y) - r > 0$ by definition of $A$.
 \end{document}
