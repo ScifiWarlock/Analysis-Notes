@@ -7,7 +7,7 @@
 \contentsline {section}{\numberline {5}Properties of the Reals}{9}{section.5}%
 \contentsline {section}{\numberline {6}Countability and Cardinality}{15}{section.6}%
 \contentsline {section}{\numberline {7}Uncountable Sets}{21}{section.7}%
-\contentsline {section}{\numberline {8}Metric Spaces}{25}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Metrics}{25}{subsection.8.1}%
-\contentsline {section}{\numberline {9}Topology}{29}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Open and Closed sets}{29}{subsection.9.1}%
+\contentsline {section}{\numberline {8}Metric Spaces}{26}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Metrics}{27}{subsection.8.1}%
+\contentsline {section}{\numberline {9}Topology}{31}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Open and Closed sets}{31}{subsection.9.1}%

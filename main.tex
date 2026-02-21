@@ -840,6 +840,14 @@ We see that $h$ does not fit in any of the functions, so the set of such functio
 \end{proof}
 
 \medskip
+\begin{lem}
+$\mathbb{N}^\mathbb{N}$ is uncountable.
+\end{lem}
+\begin{proof}
+Assume there to be a countable amount of natural valued sequences. We can construct a new sequence by taking the $nth$ term of the $nth$ sequence and adding 1 to it. Thus we come up with a new sequence not the same as the others, showing it is not countable.
+\end{proof}
+
+\medskip
 \begin{defn}
 Equinumerosity of two sets $A, B$: $A \simeq B \implies \exists f: (f:A \xrightarrow{} B) \land f \ \text{bijection}$
 \end{defn}
@@ -862,6 +870,8 @@ If $A \in A$, then we would have a loop of infinite containment, which is not al
 We define nonequinumerosity: $A \lesssim B \implies \exists f: (f: A \xrightarrow{} B) \land f \ \text{injection}$
 \end{defn}
 Cardinality is limited to countable or finite sets, so this inequality allows us to compare numerosity or size for uncountable sets as well.\\
+
+The reason why this is so is because $f(A) \simeq A$ if $f$ is an injection (as it is one to one), and since $f(A) \subseteq B$, then $A \simeq f(A) \lesssim B$.\\
 
 We observe that $A \subseteq B \implies A \lesssim B$. However $A \lesssim B \land B \lesssim A$ does not imply $A = B$. For example:
 \begin{equation*}
@@ -1072,9 +1082,14 @@ We now prove the sequence is Cauchy:
 \begin{proof}
 We need to show we can find some $n_0$ such that $\forall k \in \mathbb{N}$ the proposition holds true. We apply the triangle inequality:
 \begin{equation*}
-    |a_{n+1} - a_n| \leqslant |a_{n+1}| + |a_n|
+    |a_{n+1} - a_n| \leqslant \left|3 - \frac{1}{a_n} - (3 - \frac{1}{a_{n-1}})\right| = \left|\frac{1}{a_{n-1}} - \frac{1}{a_n}\right|
 \end{equation*}
+\begin{equation*}
+    = \left|\frac{a_n - a_{n-1}}{a_{n}a_{n+1}}\right| \leqslant \frac{1}{2}|a_n - a_{n-1}| \leqslant \frac{1}{2^n}|a_1 - a_0| = \frac{1}{2^n} < \frac{1}{k+1}
+\end{equation*}
+We see that $2^{n_0} > k+1$. We know that $\forall n \in \mathbb{N}: n+1 \leqslant 2^n$, so if we set $n_0 \coloneq k+1$, then $k+1 < 2^{k+1}$ and $\frac{1}{2^{k+1}} = \frac{1}{k+1}$.
 \end{proof}
+\pagebreak
 
 \subsection{Metrics}
 We now generalize the notion of distance to the concept of a "metric":
@@ -1244,7 +1259,14 @@ We can use this to see if a set is open:
 \begin{defn}
 An open set is one for which we can find an empty ball around each point that is a subset of the set
 \end{defn}
-We then define a closed set as one whose complement is open.\\
+\textbf{Note the IFF}: A set is closed if and only if its complement is open.\\
+
+\begin{cor}
+A set $A$ is open if and only if its complement is closed.
+\end{cor}
+$\impliedby$: $A^c$ being closed means its complement is open by Definition 9.2. $(A^c)^c = A$, so $A$ is open.\\
+
+$\implies$:
 
 \begin{lem}
 The singleton $\{x\}$ is a closed set.
@@ -1283,7 +1305,7 @@ The complement of this set is $A \coloneq \{y \in X: \varrho(y, x) > r\}$. We ai
 \begin{equation*}
     \forall y \in A: B(y, r') \coloneq \{z \in X: \varrho(y, z) < r'\}
 \end{equation*}
-We define open balls in $A = \bar{B}^c$ and just like Lemma 9.2 find a suitable radius. By the triangle inequality:
+We define open balls in $A = \bar{B}^c$ and just like Lemma 9.2 find a suitable radius r'. By the triangle inequality:
 \begin{equation*}
     \varrho(x, y) \leqslant \varrho(x, z) + \varrho(y, z) \implies \varrho(x, y) - \varrho(y, z) \leqslant \varrho(x, z)
 \end{equation*}
@@ -1291,5 +1313,5 @@ Using the inequality $\varrho(y, z) < r'$, we see that:
 \begin{equation*}
     r - r' < \varrho(x, y) - r' < \varrho(x, z)
 \end{equation*}
-So if we set $0 < r' < \varrho(x, y) - r$, we see that $\varrho(x, z) > r$ which means $z \in A \lor B(y, r') \subseteq A$. We also know that $\varrho(x, y) - r > 0$ by definition of $A$.
+So if we set $0 < r' < \varrho(x, y) - r$, we see that $\varrho(x, z) > r$ which means $z \in A \lor B(y, r') \subseteq A$. We also know that $\varrho(x, y) - r > 0$ by definition of $A$. Since $A$ is open, then $\bar{B} = A^c$ is closed.
 \end{document}
