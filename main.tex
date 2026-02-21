@@ -21,6 +21,7 @@
 \newtheorem{defn}{Definition}[section]
 \newtheorem{cor}{Corollary}[section]
 \newtheorem{axm}{Axiom}[section]
+\newtheorem{note}{Note}[section]
 
 \tcolorboxenvironment{thm}{
   colback=lime,
@@ -48,6 +49,12 @@
 
 \tcolorboxenvironment{axm}{
   colback=white,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{note}{
+  colback=lightgray,
   colframe=black,
   breakable
 }
@@ -1237,6 +1244,52 @@ $\impliedby$: We proceed by contrapositive. Assume $\{x_n\}_{n \in \mathbb{N}}$ 
     n_0 = 1 \land n_k \coloneq \inf\{m > n_k \land \varrho(x_m, z) > \epsilon\}
 \end{equation*}
 Essentially each $n_k$ of the subsequence is the smallest value of $m$ so that the sequence does not converge, then the subsequence does not converge. So by the contrapositive of lemma 8.3, the subsubsequence does not converge.
+\end{proof}
+
+\medskip
+\begin{note}
+\textbf{Tips for Convergence Proofs}: If the $n$ term is in the exponent, eg $1/n$ try to use archimedian to bring it to the numerator. For example:
+\begin{equation*}
+    \forall \epsilon > 0, \exists n \in \mathbb{N} \setminus \{0\}: b^{1/n} - 1 < \epsilon
+\end{equation*}
+\begin{equation*}
+    b^{1/n} - 1 \leqslant b - 1 < \epsilon \implies \frac{\epsilon}{b-1} > 0 \implies \exists n: n\cdot \frac{\epsilon}{b-1} > 1
+\end{equation*}
+\begin{equation*}
+    \implies n > \frac{b-1}{\epsilon} \implies n \coloneq \frac{b-1}{\epsilon} + 1
+\end{equation*}
+Also if we are trying to show less than or equal to inequalities, we want to find a \textbf{LARGER} numerator OR a \textbf{SMALLER} denominator.\\
+
+To determine monotonicity of a sequence (or subsequence) with a recursive definition:
+\begin{enumerate}
+    \item Check the base case e.g. $a_0 < a_1$
+    \item Assume $P_n$ such that $a_{n-1} < a_n$
+    \item Write the (recursive) sequence as a function and show it is increasing or decreasing
+    \item Apply it to $P_n$ to show $a_n < a_{n+1}$ is true, thus concluding for all $n$
+    \item This can help us eliminate certain candidates for limits
+\end{enumerate}
+\end{note}
+
+\medskip
+\textbf{Midterm 2 Problem 5}: Prove that $d(x, y) \coloneq \inf\{\varrho(x, w) + \varrho(w, y): w \in X\}$ is a metric.
+\begin{proof}
+We will skip over symmetry and positivity (those are easy to prove). For the triangle inequality, we need to prove the following:
+\begin{equation*}
+    d(x, y) \leqslant d(x, z) + d(z, y) \implies \inf\{\varrho(x, w) + \varrho(w, y)\} \leqslant \inf\{\varrho(x, w) + \varrho(w, z)\} + \inf\{\varrho(z, w) + \varrho(w, y)\}
+\end{equation*}
+We know that by infimum properties that $\inf(A) + \inf(B) = \inf(A + B)$. So:
+\begin{equation*}
+    \inf\{\varrho(x, w) + \varrho(w, z)\} + \inf\{\varrho(z, w) + \varrho(w, y)\} = \inf\{\varrho(x, w) + \varrho(w, y) + 2\varrho(w, z)\}
+\end{equation*}
+We need to prove the infimum of the left set is less than the infimum of the right hand set. We see that by positivity $\varrho(w, z) \geqslant 0$:
+\begin{equation*}
+    \forall w \in X: \varrho(x, w) + \varrho(w, y) \leqslant \varrho(x, w) + \varrho(w, y) + 2\varrho(w, z)
+\end{equation*}
+The left hand side of the inequality is therefore always a bound for the elements of the right hand set so:
+\begin{equation*}
+    \forall w \in X: \inf\{\varrho(x, w) + \varrho(w, y)\} \leqslant \varrho(x, w) + \varrho(w, y) \leqslant \inf\{\varrho(x, w) + \varrho(w, y) + 2\varrho(w, z)\}
+\end{equation*}
+Thereby proving the triangle inequality for this metric.
 \end{proof}
 \pagebreak
 
