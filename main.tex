@@ -1380,13 +1380,92 @@ We now define the notion of a topology, which is another way of classifying open
         \item $\bigcap A \in \uptau$ (Closed under \textbf{finite} intersection)
     \end{enumerate}
 \end{defn}
-If all these requirements are satisfied, then the collection of subsets is called a topology $\uptau$ on $X$. The "coarsest" topology is simply $\{\varnothing, X\}$, which can be checked follows all definitions. To discuss the finest topology, we show the following lemma:
+If all these requirements are satisfied, then the collection of subsets is called a topology $\uptau$ on $X$. The "coarsest" topology is simply $\{\varnothing, X\}$, which can be checked follows all definitions.
 
 \pagebreak
+\begin{defn}
+    A topology can also be defined as a collection of closed sets such that:
+    \begin{enumerate}
+        \item Since $X = \varnothing^c$, and since $X$ is open, then $\varnothing$ is closed. Similarly since $\varnothing$ is open, then $X$ is closed.
+        \item $(\bigcup A)^c = \bigcap A^c$. $A^c$ is closed, since $A$ is open, and similarly $(\bigcup A)^c$ is closed. Therefore, the arbitrary intersection of closed sets belongs in the topology.
+        \item Similarly $(\bigcap A)^c = \bigcup A^c$, so the finite union of closed sets belongs to the topology.
+    \end{enumerate}
+\end{defn}
+
+\medskip
 \begin{lem}
-    A metric $\varrho$ on $X$ induces a topology $\uptau$
+    A metric $\varrho$ on $X$ induces a topology $\uptau \coloneq \{O \subseteq X: O \ \text{open}\}$
 \end{lem}
 For the first statement, we see that $\varnothing$ is trivially open as we can always define open balls that are subsets of it since it contains no elements. $X$ is also trivially open as any open ball must be a subset of it (there exists nothing beyond $X$).\\
 
+Given a collection of open subsets $A$, then:
+\begin{equation*}
+    x \in \bigcup A \implies \exists A_i \in A: x \in A_i \land A_i \ \text{open}
+\end{equation*}
+So since $A_i$ is open, we can find an open ball $B(x, r) \subseteq A_i$, so $\forall x \in \bigcup A, \exists B(x, r) \subseteq A_i \subseteq \bigcup A$. Thus the union is open.\\
 
+Now given the intersection $\bigcap A$, then:
+\begin{equation*}
+    \forall x \in \bigcap A, \forall A_i \in A: x \in A_i
+\end{equation*}
+Since each $A_i$ is open, then we can find an open ball $B(x, r_i)$ for each subset such that $B(x, r_i) \subseteq A_i$. We see that the balls are nested:
+\begin{equation*}
+    B(x, r_0) \subseteq B(x, r_1) \subseteq ... B(x, r_i)
+\end{equation*}
+If $r_0 \coloneq \min\{r_i\}$, then $\forall A_i: B(x, r_0) \subseteq A_i$, so for any point in the intersection, we can find an open ball contained in the intersection, meaning the intersection is open.
+
+\medskip
+\begin{defn} We define the interior and closure:
+    \begin{enumerate}
+        \item The interior of a set $A$: $\text{int}(A) \coloneq \bigcup \{O \in \uptau: O \subseteq A\}$
+        \item The closure of a set $A$: $\bar{A} \coloneq \bigcap \{C \in \uptau: A \subseteq C\}$
+    \end{enumerate}
+\end{defn}
+The closure of the set relies on arbitrary intersections which is possible due to the arbitrary intersections of closed set collections in the topology.
+
+\medskip
+\begin{lem}
+    $\text{int}(A) \subseteq A \subseteq \bar{A}$
+\end{lem}
+\begin{proof}
+If $x \in \text{int}(A)$, then:
+\begin{equation*}
+    \forall x: x \in \text{int}(A) \implies \exists O \subseteq A: x \in O
+\end{equation*}
+Since $x \in O \subseteq A$, then $x \in A$, so $\text{int}(A) \subseteq A$.\\
+
+If $x \in A$, then:
+\begin{equation*}
+    \forall x, \forall C \in \uptau: x \in A \land A \subseteq C \implies x \in C
+\end{equation*}
+\begin{equation*}
+    \implies \forall x: x \in A \implies \forall C \in \uptau: x \in C \iff x \in \bar{A}
+\end{equation*}
+Therefore $A \subseteq \bar{A}$, proving our lemma.
+\end{proof}
+
+\medskip
+\begin{lem} The following equivalences hold:
+    \begin{enumerate}
+        \item $A \ \text{open} \iff A = \text{int}(A)$
+        \item $A \ \text{closed} \iff A = \bar{A}$
+    \end{enumerate}
+\end{lem}
+\begin{proof}We prove the first statement:
+$\implies$: If $A$ is open, then $A$ belongs to the union of open sets which are subsets of $A$, thus $\text{int}(A) \subseteq A$. We know that $A \subseteq \textsl{int}(A)$, thus $A = \textsl{int}(A)$.\\
+
+$\impliedby$: If $A = \text{int}(A)$, then $A$ is the union of open sets so $A$ is an open set.
+\end{proof}
+
+\begin{proof} The proof of the second statement is similar:
+$\implies$: If $A$ is closed, then $A$ belongs to collection of closed sets contributing to the intersection, thus $\bar{A} \subseteq A$. We know that $A \subseteq \bar{A}$, so $A = \bar{A}$.\\
+
+$\impliedby$: If $A = \bar{A}$, then $A$ is an arbitrary intersection of closed sets, which by topology axioms, $A$ is closed.
+\end{proof}
+
+\medskip
+\begin{defn}
+The boundary of a set $A$ or $\partial A$ is defined as $\bar{A} \setminus \text{int}(A)$
+\end{defn}
+If $A \subseteq X$, then we can write $\partial A$ as $\bar{A} \cap (X \setminus A)$. Since both $\bar{A}$ and $X \setminus \text{int}(A)$ are closed, then their intersection is closed.
 \end{document}
