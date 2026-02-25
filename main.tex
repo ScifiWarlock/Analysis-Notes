@@ -10,6 +10,7 @@
 \usepackage[margin=1in,footskip=0.25in]{geometry}
 \usepackage[most]{tcolorbox}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{upgreek}
 
 % if you ever want to ente% Required for inserting images
 
@@ -1367,4 +1368,25 @@ Using the inequality $\varrho(y, z) < r'$, we see that:
     r - r' < \varrho(x, y) - r' < \varrho(x, z)
 \end{equation*}
 So if we set $0 < r' < \varrho(x, y) - r$, we see that $\varrho(x, z) > r$ which means $z \in A \lor B(y, r') \subseteq A$. We also know that $\varrho(x, y) - r > 0$ by definition of $A$. Since $A$ is open, then $\bar{B} = A^c$ is closed.
+
+\medskip
+\subsection{Topologies}
+We now define the notion of a topology, which is another way of classifying open and closed sets.
+\begin{defn}
+    A topology $\uptau$ is a collection of subsets of a space $X$ which are open if:
+    \begin{enumerate}
+        \item $\varnothing, X \in \uptau$
+        \item $\bigcup A \in \uptau$ (Closed under Arbitrary Unions - finite/infinite)
+        \item $\bigcap A \in \uptau$ (Closed under \textbf{finite} intersection)
+    \end{enumerate}
+\end{defn}
+If all these requirements are satisfied, then the collection of subsets is called a topology $\uptau$ on $X$. The "coarsest" topology is simply $\{\varnothing, X\}$, which can be checked follows all definitions. To discuss the finest topology, we show the following lemma:
+
+\pagebreak
+\begin{lem}
+    A metric $\varrho$ on $X$ induces a topology $\uptau$
+\end{lem}
+For the first statement, we see that $\varnothing$ is trivially open as we can always define open balls that are subsets of it since it contains no elements. $X$ is also trivially open as any open ball must be a subset of it (there exists nothing beyond $X$).\\
+
+
 \end{document}
