@@ -1295,7 +1295,7 @@ Thereby proving the triangle inequality for this metric.
 \pagebreak
 
 \section{Topology}
-\subsection{Open and Closed sets}
+\subsection{Open and Closed sets (In Metric Spaces)}
 We now deal with the notion of a set being "open" and "closed". This is the same as saying does the set contain its boundary points or not (however we have not defined boundary points).\\
 
 \begin{defn}
@@ -1415,6 +1415,17 @@ Since each $A_i$ is open, then we can find an open ball $B(x, r_i)$ for each sub
 If $r_0 \coloneq \min\{r_i\}$, then $\forall A_i: B(x, r_0) \subseteq A_i$, so for any point in the intersection, we can find an open ball contained in the intersection, meaning the intersection is open.
 
 \medskip
+\begin{defn}
+A topology $\uptau$ for a space $X$ can be represented by a collection of subsets $\mathcal{B}$ called the basis:
+\begin{enumerate}
+    \item $\forall x \in X, \exists B \in \mathcal{B}: x \in B$
+    \item $\forall x, \forall B_1, B_2 \in \mathcal{B}: x \in B_1 \cap B_2 \implies \exists B_3 \in \mathcal{B}: x \in B_3$
+    \item $\forall A \subseteq X: A \ \text{open} \iff \forall x \in A, \exists B \in \mathcal{B}: x \in B$
+\end{enumerate}
+\end{defn}
+For a metric space $(X, \varrho)$, the basis of the topology induced by the metric is the subcollection of all metric balls $B(x, r)$
+
+\medskip
 \begin{defn} We define the interior and closure:
     \begin{enumerate}
         \item The interior of a set $A$: $\text{int}(A) \coloneq \bigcup \{O \in \uptau: O \subseteq A\}$
@@ -1451,13 +1462,13 @@ Therefore $A \subseteq \bar{A}$, proving our lemma.
         \item $A \ \text{closed} \iff A = \bar{A}$
     \end{enumerate}
 \end{lem}
-\begin{proof}We prove the first statement:
+\begin{proof}We prove the first statement:\\
 $\implies$: If $A$ is open, then $A$ belongs to the union of open sets which are subsets of $A$, thus $\text{int}(A) \subseteq A$. We know that $A \subseteq \textsl{int}(A)$, thus $A = \textsl{int}(A)$.\\
 
 $\impliedby$: If $A = \text{int}(A)$, then $A$ is the union of open sets so $A$ is an open set.
 \end{proof}
 
-\begin{proof} The proof of the second statement is similar:
+\begin{proof} The proof of the second statement is similar:\\
 $\implies$: If $A$ is closed, then $A$ belongs to collection of closed sets contributing to the intersection, thus $\bar{A} \subseteq A$. We know that $A \subseteq \bar{A}$, so $A = \bar{A}$.\\
 
 $\impliedby$: If $A = \bar{A}$, then $A$ is an arbitrary intersection of closed sets, which by topology axioms, $A$ is closed.
@@ -1467,5 +1478,60 @@ $\impliedby$: If $A = \bar{A}$, then $A$ is an arbitrary intersection of closed 
 \begin{defn}
 The boundary of a set $A$ or $\partial A$ is defined as $\bar{A} \setminus \text{int}(A)$
 \end{defn}
-If $A \subseteq X$, then we can write $\partial A$ as $\bar{A} \cap (X \setminus A)$. Since both $\bar{A}$ and $X \setminus \text{int}(A)$ are closed, then their intersection is closed.
+If $A \subseteq X$, then we can write $\partial A$ as $\bar{A} \cap (X \setminus \textsl{int}(A))$. Since both $\bar{A}$ and $X \setminus \text{int}(A)$ are closed, then their intersection is closed.
+
+\medskip
+\begin{lem}
+Let $(X, \varrho)$ be a matric space. Prove that for all sets $A, B \subseteq X$, the following holds:
+\begin{equation*}
+    A \subseteq B \implies \text{int}(A) \subseteq \text{int}(B) \land \bar{A} \subseteq \bar{B}
+\end{equation*}
+and
+\begin{equation*}
+    X \setminus \text{int}(A) = \overline{X \setminus A} \land X \setminus \bar{A} = \text{int}(X \setminus A)
+\end{equation*}
+In particular.
+\begin{equation*}
+    \partial A = \bar{A} \cap \overline{X \setminus A} = \partial(X \setminus A)
+\end{equation*}
+\end{lem}
+\begin{proof} We know that if $x \in A$, then $x \in \bar{A}$. Since $\bar{A} = \text{int}(A) \cup \partial A$, then $x \in \text{int}(A) \lor x \in \partial A$. If we consider $x \in \text{int}(A)$:
+\begin{equation*}
+    x \in \text{int}(A) \iff \exists O \subseteq A: x \in O
+\end{equation*}
+\begin{equation*}
+    \implies O \subseteq A \subseteq B \implies O \subseteq \text{int}(B)
+\end{equation*}
+We see the last implication as $O$ is an open subset of $B$ which means it contributes to the union of open sets that make up the interior. Thus $x \in \text{int}(B)$, showing $\text{int}(A) \subseteq \text{int}(B)$.\\
+
+If $x \in A$ (not necessarily in the interior), then $x \in \bar{A}$:
+\begin{equation*}
+    x \in \bar{A} \implies \forall C \subseteq X: A \subseteq C \land C \ \text{closed} \implies x \in C
+\end{equation*}
+Since $A \subseteq B$ and $B \subseteq \bar{B}$, then we see that $A \subseteq \bar{B}$. So $\bar{B}$ is one such set that contributes to the closure of $A$. Thus:
+\begin{eqnarray}
+    \forall x: x \in \bar{A} \implies x \in \bar{B} \iff \bar{A} \subseteq \bar{B}
+\end{eqnarray}
+We first prove the following statement:
+\begin{equation*}
+    A \subseteq B \implies X \setminus B \subseteq X \setminus A
+\end{equation*}
+If $x \in X \setminus B$ or $B^c$, then $x \notin B \implies x \notin A$ (contrapositive of inclusion), so $B^c \subseteq A^c$.\\
+
+For the second statement, we see that by DeMorgan's Laws:
+\begin{equation*}
+    X \setminus \text{int}(A) = X \setminus \bigcup \{O \subseteq X: O \ \text{open} \land O \subseteq A\} = (\bigcup \{O \subseteq X: O \ \text{open} \land O \subseteq A\})^c
+\end{equation*}
+\begin{equation*}
+    = \bigcap\{X \setminus O \subseteq X: X \setminus O \ \text{closed} \land X \setminus A \subseteq X \setminus O\}
+\end{equation*}
+Then by definition of closure, $X \setminus \text{int}(A) = \overline{X \setminus A}$. We now prove the statement for $X \setminus \bar{A}$:
+\begin{equation*}
+    X \setminus \bar{A} = X \setminus \bigcap\{C \subseteq X: C \ \text{closed} \land A \subseteq C\} = (\bigcap\{C \subseteq X: C \ \text{closed} \land A \subseteq C\})^c
+\end{equation*}
+\begin{equation*}
+    = \bigcup\{X \setminus C \subseteq X: X \setminus C \ \text{open} \land X \setminus C \subseteq X \setminus A\} = \text{int}(X \setminus A)
+\end{equation*}
+Finally, by definition 9.6, we know that $\partial A = \bar{A} \cap (X \setminus \text{int}(A)) = \bar{A} \cap \overline{X \setminus A} = \overline{X \setminus A} \cap (X \setminus X \setminus \bar{A}) = \overline{X \setminus A} \cap (X \setminus \text{int}(X \setminus A)) = \partial(X \setminus A)$.\\
+\end{proof}
 \end{document}
