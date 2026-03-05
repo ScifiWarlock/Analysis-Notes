@@ -278,7 +278,7 @@ We now prove the surjectivity of $\sup$:
 \begin{equation*}
     \forall x \in F, \exists A \in \mathbb{R}_F: \sup(A) = x
 \end{equation*}
-Assume for a certain $x \in F$, that there does not exist an $A \in \mathbb{R}_F$ such that $\sup(A) = x$. Then all Dedekind cuts must admit a supremum in $F$ as they are bounded above. (The following part may be a bit hand wavy :), but in essence by means of pigeonhole principle (whose proof we detailed before), two different cuts will then share the same supremum, which breaks injectivity. 
+By the total ordering of $F$ and the fact that each field has its copy of the rationals, we can find the set of rationals strictly less than $x$. This is the associated Dedekind cut $A$.
 \end{proof}
 
 \medskip
@@ -993,7 +993,7 @@ We first prove that $\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \sim
 \begin{equation*}
     \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \{0, 1\}^\mathbb{N} \times \{0, 1\}^\mathbb{N}
 \end{equation*}
-We can construct an injection $f: \{0, 1\}^\mathbb{N} \times \{0. 1\}^\mathbb{N} \xrightarrow{} \{0, 1\}^\mathbb{N}$. If we take a pair of sequences, simply concatenating them provides a new, unique sequence. Therefore:
+We can construct an injection $f: \{0, 1\}^\mathbb{N} \times \{0. 1\}^\mathbb{N} \xrightarrow{} \{0, 1\}^\mathbb{N}$. If we take a pair of sequences, simply making the elements from the first sequence as odd elements and from the second as even elements, we get a unique sequence. Therefore:
 \begin{equation*}
     \mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N}) \simeq \{0, 1\}^\mathbb{N} \times \{0, 1\}^\mathbb{N} \lesssim \{0, 1\}^\mathbb{N} \simeq \mathcal{P}(\mathbb{N})
 \end{equation*}
@@ -1371,7 +1371,12 @@ So if we set $0 < r' < \varrho(x, y) - r$, we see that $\varrho(x, z) > r$ which
 
 \medskip
 \subsection{Topologies}
-We now define the notion of a topology, which is another way of classifying open and closed sets.
+Let us provide some motivation behind the notion of a topology. By Definition 9.2, a set is closed if its complement is open. How do we define an open set? Perhaps an open set is one whose complement is closed. We arrive at a circular definition.\\
+
+Let's try a different approach. A closed set is one which has its boundary in it, and an open set is one whose complement is closed. How do we define the boundary? Perhaps we can define it as the set without its inside (interior). How do we define the interior of a set?\\
+
+Perhaps (and this is not formal) we can call it the largest open proper subset of the closed set. How do we define this maximal subset? It is maximal in relation to other open subsets, so we need a general definition of an open set.
+\pagebreak
 \begin{defn}
     A topology $\uptau$ is a collection of subsets of a space $X$ which are open if:
     \begin{enumerate}
@@ -1382,7 +1387,7 @@ We now define the notion of a topology, which is another way of classifying open
 \end{defn}
 If all these requirements are satisfied, then the collection of subsets is called a topology $\uptau$ on $X$. The "coarsest" topology is simply $\{\varnothing, X\}$, which can be checked follows all definitions.
 
-\pagebreak
+\medskip
 \begin{defn}
     A topology can also be defined as a collection of closed sets such that:
     \begin{enumerate}
@@ -1392,7 +1397,32 @@ If all these requirements are satisfied, then the collection of subsets is calle
     \end{enumerate}
 \end{defn}
 
-\medskip
+Building upon the notion of topology, we can often "define" or "generate" a topology through a smaller collection of subsets of $X$, which we call the basis.
+\begin{defn}
+    A basis $\mathcal{B}$ of a topology $\uptau$ is a collection of $X$:
+    \begin{enumerate}
+        \item $\forall x \in X, \exists B \in \mathcal{B}: x \in B \land B \subseteq X$
+        \item $\forall B_1, B_2 \in \mathcal{B}, \forall x \in B_1 \cap B_2, \exists B_3 \in \mathcal{B}: x \in B_3 \subseteq B_1 \cap B_2$
+    \end{enumerate}
+\end{defn}
+The first part of the definition ensures that every point in the space is "covered" by at least one basis element (if not more depending on the space). That way, we can describe a topology on $X$ adequately (all of $X$ must be in the topology).\\
+
+We will touch on the purpose of the second definition in the following lemma:
+\begin{lem}
+    A topology $\uptau$ \textbf{generated} by a basis $\mathcal{B}$ is defined as:
+    \begin{equation*}
+        \uptau \coloneq \{U \subseteq X: (\forall x \in U, \exists B \in \mathcal{B}: x \in B \subseteq U)\}
+    \end{equation*}
+\end{lem}
+Here we define a topology "generated" by a basis as the collection of subsets that meet the criteria of openness. While our previous criteria for openness was the topological axioms, we introduce a more simple construct of a basis to define openness.\\
+
+We see that each basis element is trivially open by this definition as it is a subset of $X$ and a subset of itself. The reader can check that this corresponds to the definitions given in the previous section of open/closedness in a metric space. So the basis for metric spaces is the collection of all open ball subsets of $(X, \varrho)$.\\
+
+We see that such generated topology does follow the topological axioms (so if we can come up with a collection/basis that satisfies Defn 9.5, then we fulfill the topological axioms).\\
+
+The following lemma will talk about the topology induced by a metric on a space specifically, but the proof can be generalized to non metrizable spaces.
+
+\pagebreak
 \begin{lem}
     A metric $\varrho$ on $X$ induces a topology $\uptau \coloneq \{O \subseteq X: O \ \text{open}\}$
 \end{lem}
@@ -1412,18 +1442,16 @@ Since each $A_i$ is open, then we can find an open ball $B(x, r_i)$ for each sub
 \begin{equation*}
     B(x, r_0) \subseteq B(x, r_1) \subseteq ... B(x, r_i)
 \end{equation*}
-If $r_0 \coloneq \min\{r_i\}$, then $\forall A_i: B(x, r_0) \subseteq A_i$, so for any point in the intersection, we can find an open ball contained in the intersection, meaning the intersection is open.
+If $r_0 \coloneq \min\{r_i\}$, then $\forall A_i: B(x, r_0) \subseteq A_i$, so for any point in the intersection, we can find an open ball contained in the intersection, meaning the intersection is open.\\
 
-\medskip
-\begin{defn}
-A topology $\uptau$ for a space $X$ can be represented by a collection of subsets $\mathcal{B}$ called the basis:
-\begin{enumerate}
-    \item $\forall x \in X, \exists B \in \mathcal{B}: x \in B$
-    \item $\forall x, \forall B_1, B_2 \in \mathcal{B}: x \in B_1 \cap B_2 \implies \exists B_3 \in \mathcal{B}: x \in B_3$
-    \item $\forall A \subseteq X: A \ \text{open} \iff \forall x \in A, \exists B \in \mathcal{B}: x \in B$
-\end{enumerate}
-\end{defn}
-For a metric space $(X, \varrho)$, the basis of the topology induced by the metric is the subcollection of all metric balls $B(x, r)$
+To generalize this part, we know that $\forall x \in A_i, \exists B(x, r_i)$. Now this is where the second part of the basis definition plays a role:
+\begin{equation*}
+    \forall x \in A_1, A_2, \exists B_1, B_2: x \in B_1 \subseteq A_1 \land x \in B_2 \subseteq A_2
+\end{equation*}
+\begin{equation*}
+    \forall x \in B_1 \cap B_2, \exists B_3: x \in B_1 \land x \in B_2 \implies x \in A_1 \land x \in A_2 \implies x \in B_3 \subseteq B_1 \cap B_2 \subseteq A_1 \cap A_2
+\end{equation*}
+So for any point in the intersection, we can find a basis element (in this case open ball) that belongs in the intersection. We repeat the above process inductively (as we only deal with finite intersections), showing us that the finite intersections are also open.
 
 \medskip
 \begin{defn} We define the interior and closure:
@@ -1433,6 +1461,31 @@ For a metric space $(X, \varrho)$, the basis of the topology induced by the metr
     \end{enumerate}
 \end{defn}
 The closure of the set relies on arbitrary intersections which is possible due to the arbitrary intersections of closed set collections in the topology.
+
+\medskip
+We can also say the following about a topology generated by a basis:
+\begin{lem}
+    The topology $\uptau$ generated by the basis $\mathcal{B}$ is equivalent to the collection of unions of subcollections of $\mathcal{B}$.
+\end{lem}
+\begin{proof}
+We call the topology of unions $\uptau_B$. We assume that $\mathcal{B} \subseteq \uptau_B$. Then any arbitrary unions of basis elements belong in the topology. By part 2 of basis definition, it is also closed under arbitary intersections of $\mathcal{B}$. To show the two topologies are equivalent, we aim to show all open sets in $\uptau$ are unions of basis elements.\\
+
+We know by the definition of $U \in \uptau$:
+\begin{equation*}
+    \forall x \in U, \exists B_x \in \mathcal{B}: x \in B_x \implies x \in \bigcup B_x \implies U \subseteq \bigcup B_x
+\end{equation*}
+We do not require Axiom of Choice here as the property of bases allows us to generate a (not necessarily unique) collection of basis elements.\\
+
+Now we want to prove $\bigcup B_x \subseteq U$. We can either use the collection of all basis elements that are subsets of $U$ (this does not require choice as we have a rule), so if $x$ is in its union, then $x$ is one of the subsets which means $x$ is in $U$.\\
+
+Alternatively, we can select one such collection where each $x \in U$ belongs to one specific basis element which is a subset of $U$. Then:
+\begin{equation*}
+    x \in \bigcup B_x \implies \exists B_x \in \mathcal{B}: x \in B_x \implies x \in U
+\end{equation*}
+Thus $\bigcup B_x \subseteq U$, thus $U = \bigcup B_x$, showing that the two topologies $\uptau_B$ and $\uptau$ are equivalent. (To summarize, we defined the first topology $\uptau_b$ and then showed that any element in $\uptau$ has an equivalent representation in $\uptau_B$).\\
+
+The reason why the second approach required axiom of choice is because while we can guarantee a basis element which is a subset of $U$ containing $x$ for every $x \in U$, we cannot guarantee ONE, UNIQUE element (there can be multiple). Thus choosing one unique element means we are chosing a basis for each point from a possibly infinite collection of basis element families (depending on $X$, we may not need Axiom of Choice, but the proof is for full generality, so we assume it).
+\end{proof}
 
 \medskip
 \begin{lem}
