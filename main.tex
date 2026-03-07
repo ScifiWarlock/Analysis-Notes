@@ -1744,17 +1744,19 @@ We prove both implications:\\
 \end{equation*}
 Since $x_n \in A$, then $B(x, r) \cap A \neq \varnothing$, thus $x$ is an adherent point so $x \in A = \bar{A}$.\\
 
-($\impliedby$) We prove by contrapositive. If $A$ is not closed, then if $x \in A$ then $x \in \bar{A}$, so $x$ is adherent:
+($\impliedby$) We prove by contrapositive. If $A$ is not closed, then we show that $x_n \xrightarrow{} x \land x \notin A$ is true. If $x \notin A$ then $x \in X \setminus A$ and $X \setminus A$ is not open since $A$ not closed.\\
+
+Therefore, (informally), $X \setminus A$ has a boundary part (its "clopen"), so we see that:
 \begin{equation*}
     \forall r > 0: B(x, r) \cap A \neq \varnothing
 \end{equation*}
 Since $\forall x_n: x_n \in A$, we need to find a sequence such that $\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: \varrho(x_n, x) < \epsilon$. Alternatively $\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \in B(x, \epsilon)$. (This is the same as the proposition of an open ball is $\varrho(x, x_n) < \epsilon$)\\
 
-(\textbf{Axiom of Choice}): The sequence allows us to say that $B(x, r) \cap A \neq \varnothing$ as $\forall n \geqslant 0: x_n \in A$. To choose from an infinite family, we require the axiom of choice. We give the choice rule:
+(\textbf{Axiom of Choice}): The sequence allows us to say that $B(x, r) \cap A \neq \varnothing$ as $\forall n \geqslant 0: x_n \in A$. To choose from an infinite family, we require the axiom of choice. We give the choice rule and because $x \notin A$:
 \begin{equation*}
-    \{x_n\}_{n \in \mathbb{N}} \coloneq \bigtimes_{n \in \mathbb{N}} A \cap (B(x, 2^{-n})\setminus\{x\})
+    \{x_n\}_{n \in \mathbb{N}} \coloneq \bigtimes_{n \in \mathbb{N}} A \cap (B(x, 2^{-n})\setminus\{x\}) = \bigtimes_{n \in \mathbb{N}}(A \cap B(x, 2^{-n}))\setminus \{x\}
 \end{equation*}
-Inductively we see that we create an $A$-valued sequence such that we always get that $x_n \in B(x, 2^{-n})$ or that $\varrho(x_n, x) < 2^{-n}$ ensuring convergence.
+Inductively we see that we create an $A$-valued sequence such that we always get that $x_n \in B(x, 2^{-n})$ or that $\varrho(x_n, x) < 2^{-n}$ ensuring convergence while $x \notin A$. We see that we use the definition of $x$ being a limit point of the set $A$ and equating it to the limit of a sequence (which under the hood invokes the Hausdorff condition).
 \end{proof}
 
 \medskip

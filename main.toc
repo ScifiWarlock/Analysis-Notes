@@ -14,4 +14,4 @@
 \contentsline {subsection}{\numberline {9.2}Topologies}{32}{subsection.9.2}%
 \contentsline {subsection}{\numberline {9.3}More Topological Notions}{37}{subsection.9.3}%
 \contentsline {subsection}{\numberline {9.4}Sequential Closedness}{39}{subsection.9.4}%
-\contentsline {section}{\numberline {10}Completeness}{41}{section.10}%
+\contentsline {section}{\numberline {10}Completeness}{42}{section.10}%
