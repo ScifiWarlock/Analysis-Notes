@@ -104,6 +104,21 @@ Here the biconditional means that the propositions are equivalent. We can use th
 
 This lemma highlights proof by contradiction, where we assume $P$ and $\lnot Q$ and we show some contradiction (or show that the proposition is false). Then the logical not of the proposition is true. The second equivalence is an application of DeMorgan's Laws for logic.\\
 
+\text{NOTE}: $(P \implies Q)$ is not the same as $\lnot P \implies \lnot Q$. It is equivalent to $Q \implies P$ by Lemma 1.2. We see the truth table below and compare it to the one above:
+\begin{center}
+\begin{tabular}{| c | c  | c |}
+\hline
+$P$ & $Q$ & $\lnot P \implies \lnot Q$ \\
+\hline
+T & T & T\\
+T & F & T\\
+F & T & F\\
+F & F & T\\
+\hline
+\end{tabular}
+\end{center}
+
+\medskip
 \begin{lem}
     $(P \implies Q) \iff \lnot Q \implies \lnot P$
 \end{lem}
@@ -1660,15 +1675,40 @@ The set of exterior points is the set $X \setminus \bar{A}$. (will complete proo
 \medskip
 \begin{defn}
 A limit point $x \in X$: $\forall r > 0: (B(x, r) \cap A) \setminus \{x\} \neq \varnothing$.\\
-An isolated point $x \in X$: $\exists r > 0: B(x, r) \cap A = \{x\}$
+An isolated point $x \in A$: $\exists r > 0: B(x, r) \cap A = \{x\}$
 \end{defn}
 Open balls around limit points still contain other points of $A$ besides the limit point, unlike isolated points. So isolated points are the negation of limit points (rewritten as $\exists r > 0: (B(x, r) \cap A)\setminus \{x\} = \varnothing$).\\
 
 The idea of a limit point is similar to what was done with the $\epsilon$ proofs. We are just taking an arbitrary sized metric ball with radius $\epsilon$ or $r$, for which we must be able to find any point in that sequence (or in this case space) within that radius.\\
 
+Furthermore by definition, an isolated point always belongs to the set $A$ (because it belongs in the intersection).
+
 \medskip
 \begin{lem}
-Every limit point is adherent
+Every isolated point is a boundary point of $A$
+\end{lem}
+\begin{proof}
+We first tackle the easy requirement that an isolated point is adherent to $A$. Since the isolated point $x$ is defined to be in $A$:
+\begin{equation*}
+    \exists r > 0: B(x, r) \cap A = \{x\} \implies \forall r > 0: B(x, r) \cap A \neq \varnothing
+\end{equation*}
+This is because $x \in A$ is always contained in any open ball radius $r$, so the intersection of the ball and $A$ is always nonempty, thus $x$ is adherent (thus its in the closure).\\
+
+We now prove that $\forall r > 0: B(x, r) \cap (X \setminus A) \neq \varnothing$ (it is adherent to the complement of the set). The definition of an adherent point tells us that $\exists r_0 > 0: B(x, r) \cap A = \{x\}$. So:
+\begin{equation*}
+    r \leqslant r_0 \implies B(x, r) \subseteq B(x, r_0)
+\end{equation*}
+So since $x \in A$ and $x \in B(x, r)$, then $B(x, r) \cap A = \{x\}$. Thus all other elements in the open ball belong in $X \setminus A$.\\
+
+If $r > r_0$, then $B(x, r_0) \subseteq B(x, r)$. Since $B(x, r_0)$ contains elements in $X \setminus A$, then so does $B(x, r)$. So we have shown for any isolated point $x \in A$:
+\begin{equation*}
+    \forall r > 0: (B(x, r) \cap A \neq \varnothing) \land (B(x, r) \cap (X \setminus A) \neq \varnothing)
+\end{equation*}
+\end{proof}
+
+\medskip
+\begin{lem}
+Every limit point is adherent.
 \end{lem}
 Since a limit point $x \in X$ is defined such that $\forall r > 0: (B(x, r) \cap A) \setminus \{x\} \neq \varnothing$, then we see that $B(x, r) \cap A \neq \varnothing$, thus it is adherent or in the closure of $A$.
 
@@ -1681,14 +1721,14 @@ The disjointness of the two sets follows from the definitions. In Defn 9.12, we 
 \begin{equation*}
     x \in \bar{A} \iff \forall r > 0: B(x, r) \cap A \neq \varnothing
 \end{equation*}
-We know that a point $x$ is either an adherent point or an isolated point, so:
+We know that a point $x$ in the closure is either an isolated (and adherent) or adherent but not isolated, so:
 \begin{equation*}
     \iff (\exists r > 0: B(x, r) \cap A = \{x\}) \lor ((\forall r > 0: B(x, r) \cap A \neq \varnothing) \land \lnot(\exists r > 0: B(x, r) \cap A = \{x\}))
 \end{equation*}
 \begin{equation*}
     \iff (\exists r > 0: B(x, r) \cap A = \{x\}) \lor ((\forall r > 0: B(x, r) \cap A \neq \varnothing) \land \forall r > 0: B(x, r) \cap A \neq \{x\})
 \end{equation*}
-The expression simplifies to the point being isolated or a limit point.
+The expression simplifies to the point being isolated or a limit point, a different definition for closure than interior and boundary union.
 \end{proof}
 
 \medskip
@@ -1729,11 +1769,9 @@ If $A \subseteq X$, then:
 
 ($\impliedby$) If we can find a sequence that converges to $x$, then $\forall r > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \in B(x, r)$. Since $x_n \in A$, then $B(x, r) \cap A \neq \varnothing$, so $x$ is adherent, thus $x \in \bar{A}$.
 \end{proof}
-We can show that a limit point is NOT an isolated point but is either a boundary point or interior point (considering an $A$-valued sequence). Thus if we have some point in the closure, it is either a boundary or interior point (by definition). To ensure its a limit point, we use AC to find a convergent sequence.\\
+If we have some point in the closure, it is either a limit point or isolated point (by definition). To ensure its a limit point, we use AC to find a convergent sequence; additionally for isolated points, they already belong to the set by definition so they belong to the closure, so an $A$-valued sequence is the constant sequence.\\
 
-On the converse, we know that a limit point is an interior or boundary point (note this is XOR not logical OR), so it must be in the closure by definition. (In essence it must be adherent but not isolated)\\
-
-So (informally) the intuition is that when a set contains all its limit points, it contains its interior and boundary points thus its closed. However, to define a limit point, we require a convergent sequence.
+On the converse, we know that a limit is either a limit point or isolated point (note this is XOR not logical OR), so it must be in the closure by definition.\\
 
 \medskip
 \begin{defn}
