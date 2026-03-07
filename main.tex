@@ -1756,7 +1756,7 @@ Since $\forall x_n: x_n \in A$, we need to find a sequence such that $\forall \e
 \begin{equation*}
     \{x_n\}_{n \in \mathbb{N}} \coloneq \bigtimes_{n \in \mathbb{N}} A \cap (B(x, 2^{-n})\setminus\{x\}) = \bigtimes_{n \in \mathbb{N}}(A \cap B(x, 2^{-n}))\setminus \{x\}
 \end{equation*}
-Inductively we see that we create an $A$-valued sequence such that we always get that $x_n \in B(x, 2^{-n})$ or that $\varrho(x_n, x) < 2^{-n}$ ensuring convergence while $x \notin A$. We see that we use the definition of $x$ being a limit point of the set $A$ and equating it to the limit of a sequence (which under the hood invokes the Hausdorff condition).
+Inductively we see that we create an $A$-valued sequence such that we always get that $x_n \in B(x, 2^{-n})$ or that $\varrho(x_n, x) < 2^{-n}$ ensuring convergence while $x \notin A$. We see that we use the definition of $x$ being a limit point of the set $A$ and equating it to the limit of a sequence (which under the hood relies the Hausdorff condition).
 \end{proof}
 
 \medskip
