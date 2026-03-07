@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1772678580.17665 "c:/Users/rakmo/OneDrive/Desktop/Analysis Notes/main.tex" "main.pdf" "main" 1772678582.82028 0
+["pdflatex"] 1772860187.17679 "c:/Users/rakmo/OneDrive/Desktop/Analysis Notes/main.tex" "main.pdf" "main" 1772860189.75371 0
   "C:/Users/rakmo/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1771990024 80937 91001db6d4ae332437b4b739862cda02 ""
   "C:/Users/rakmo/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1767734946 13333486 6e8880235e8136b7d2c51b0092a0547f ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -206,11 +206,11 @@
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/tex/latex/was/upgreek.sty" 1665850770 5794 9054e31be15d93f1e6bd28cca2b6643f ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
-  "c:/Users/rakmo/OneDrive/Desktop/Analysis Notes/main.tex" 1772678576 96254 a6599fd5890148e1c3ee113e30f3d24f ""
-  "main.aux" 1772678582 2241 0e12ec5a9c0439616b7e6110544b66be "pdflatex"
-  "main.out" 1772678582 2581 ab23d98800d3ad0c2bbb1fb134e1b4f1 "pdflatex"
-  "main.tex" 1772678576 96254 a6599fd5890148e1c3ee113e30f3d24f ""
-  "main.toc" 1772678582 1255 751bb3bb2a6ab7d2f9b3c20de08cf4e5 "pdflatex"
+  "c:/Users/rakmo/OneDrive/Desktop/Analysis Notes/main.tex" 1772860186 106907 e55618fa97d86777046e40e4a6c3e509 ""
+  "main.aux" 1772860189 2370 79a88406e8a3201387a6cb3b25547ba2 "pdflatex"
+  "main.out" 1772860189 2747 e533630fd4f7c0a454d684f0ac2f8d90 "pdflatex"
+  "main.tex" 1772860186 106907 e55618fa97d86777046e40e4a6c3e509 ""
+  "main.toc" 1772860189 1343 ac03e0d584441c701ff9c8e9bb39e3eb "pdflatex"
   "pnorms.png" 1771281769 51919 51ff9159506290d9dbd277f71bb9749b ""
   (generated)
   "main.aux"
